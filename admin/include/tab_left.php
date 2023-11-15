@@ -43,7 +43,7 @@
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Chức năng:</h6>
-                        <a class="collapse-item" href="?act=danhmuc">Danh Sách</a>
+                        <a class="collapse-item" href="?act=danhmuc&nd=listdm">Danh Sách</a>
                         <a class="collapse-item" href="?act=sldanhmuc">Thống Kê</a>
                     </div>
                 </div>
