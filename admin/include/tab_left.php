@@ -36,7 +36,7 @@
 
             <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+                <a class="nav-link collapsed" href="" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
                     <!-- <i class="fas fa-fw fa-cog"></i> --> <i class="fas fa-fw fa-folder"></i>
                     <span>Danh Mục</span>
                 </a>
@@ -44,7 +44,7 @@
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Chức năng:</h6>
                         <a class="collapse-item" href="?act=danhmuc&nd=listdm">Danh Sách</a>
-                        <a class="collapse-item" href="?act=sldanhmuc">Thống Kê</a>
+                        <a class="collapse-item" href="?act=danhmuc&nd=thongke">Thống Kê</a>
                     </div>
                 </div>
             </li>
@@ -60,8 +60,8 @@
                 <div id="collapseTwo1" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Chức năng:</h6>
-                        <a class="collapse-item" href="?act=listsp">Danh Sách</a>
-                        <a class="collapse-item" href="?act=addsp">Thêm Sản Phẩm</a>
+                        <a class="collapse-item" href="?act=sanpham&nd=listsp">Danh Sách</a>
+                        <a class="collapse-item" href="?act=sanpham&nd=addsp">Thêm Sản Phẩm</a>
                      
                         <a class="collapse-item" href="?act=sldanhmuc">Thống Kê</a>
                     </div>
