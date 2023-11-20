@@ -65,6 +65,19 @@ if (isset($_GET['act']) && ($_GET['act'] != '')) {
         case 'sanpham':
             if (isset($_GET['nd'])) {
                 if ($_GET['nd'] == 'listsp') {
+                    if ($_SERVER['REQUEST_METHOD'] == "POST") {
+                        $kyw = $_POST['keyword'];
+                        $id_dm = $_POST['id_dm'];
+                    }else{
+                        $kyw = '';
+                        $id_dm = 0;
+                    }
+
+                    if (isset($_GET['id_dm'])) {
+                        $id_dm = $_GET['id_dm'];
+                    }
+
+                    $dssp = loadAll_sp($id_dm, $kyw);
                     include('sanpham/list.php');
                 }
 
@@ -115,26 +128,26 @@ if (isset($_GET['act']) && ($_GET['act'] != '')) {
                         $ngay_nhap = $_POST["date"];
                         $gioi_tinh = $_POST["gt"];
                         $id_dm = $_POST["dm"];
-                        $hinh_sp= $_POST["hinh_sp"];
+                        $hinh_sp = $_POST["hinh_sp"];
                         $file = $_FILES["hinh_sp"];
-                        if($file['size'] > 0){
+                        if ($file['size'] > 0) {
                             $hinh_sp = $file["name"];
                             move_uploaded_file($file["tmp_name"], "../" . $img_path . $hinh_sp);
                         }
-                         update_sp($id_sp, $ten_sp, $hinh_sp, $giam_gia, $gia, $mo_ta, $ngay_nhap, $gioi_tinh, $id_dm);
+                        update_sp($id_sp, $ten_sp, $hinh_sp, $giam_gia, $gia, $mo_ta, $ngay_nhap, $gioi_tinh, $id_dm);
 
 
                         if (isset($_FILES['hinh_phu'])) {
                             if (!empty($_FILES['hinh_phu'])) {
                                 xoaimgsp($id_sp);
                                 foreach ($_FILES['hinh_phu']['tmp_name'] as $key => $value) {
-                                $file_name = $_FILES['hinh_phu']['name'][$key];
-                                $file_tmp = $_FILES['hinh_phu']['tmp_name'][$key];
-                                add_img($id_sp, $file_name);
-                                move_uploaded_file($file_tmp, "../public/uploads/" . $file_name);
+                                    $file_name = $_FILES['hinh_phu']['name'][$key];
+                                    $file_tmp = $_FILES['hinh_phu']['tmp_name'][$key];
+                                    add_img($id_sp, $file_name);
+                                    move_uploaded_file($file_tmp, "../public/uploads/" . $file_name);
+                                }
                             }
-                              }
-                            
+
                         }
                         $isthongbao = 1;
                         $thongbao = ' Thêm thành công';
