@@ -31,7 +31,7 @@
               <td> <a href="" class="text-body">Hiện Có
                   <?= $value['Tong'] ?> Sản Phẩm
                 </a></td>
-              <td><a href="" class="btn btn-success">Chi Tiết</a>
+              <td><a href="index.php?act=sanpham&nd=listsp&id_dm=<?=$value['id_dm']?>" class="btn btn-success">Chi Tiết</a>
               </td>
               </tr>
             <?php endforeach ?>

@@ -221,13 +221,23 @@
                     </button>
 
                     <!-- Topbar Search -->
-                    <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+                    <form action="?act=sanpham&nd=listsp" method="post" class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
                         <div class="input-group">
-                            <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
+                            <input type="text" class="form-control bg-light border-0 small" name="keyword" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
+                            <select name="id_dm" id="" class="border-0 bg-light small">
+                                <option value="">Tất cả</option>
+                                <?php
+                                    $dsdm = loadAll_dm(); 
+                                    foreach($dsdm as $value){
+                                        echo '<option value="'.$value['id_dm'].'">'.$value['name_dm'].'</option>';
+                                    }
+                                ?>
+                            </select>
                             <div class="input-group-append">
-                                <button class="btn btn-primary" type="button">
+                                <div class="btn btn-primary" type="button">
                                     <i class="fas fa-search fa-sm"></i>
-                                </button>
+                                    <input type="submit" class="btn btn-primary" value=" ">
+                                </div>
                             </div>
                         </div>
                     </form>
@@ -242,7 +252,7 @@
                             </a>
                             <!-- Dropdown - Messages -->
                             <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in" aria-labelledby="searchDropdown">
-                                <form class="form-inline mr-auto w-100 navbar-search">
+                                <form action="" class="form-inline mr-auto w-100 navbar-search">
                                     <div class="input-group">
                                         <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
                                         <div class="input-group-append">

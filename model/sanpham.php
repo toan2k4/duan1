@@ -3,12 +3,14 @@ function loadAll_sp($id_dm = 0, $kyw = '')
 {
     $sql = "SELECT * FROM sanpham WHERE 1";
     if($kyw != ''){
-        $sql .= " and name like '%".$kyw."%' ";
+        $sql .= " and ten_sp like '%".$kyw."%' ";
     }
     if($id_dm != 0){
         $sql .= ' and id_dm = '.$id_dm.'';
     }
     $sql .= " ORDER BY id_sp desc";
+    // var_dump($sql);
+    //                     die();
     return pdo_query($sql);
 }
 function loadAll_hp($id)

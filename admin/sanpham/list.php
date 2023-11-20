@@ -2,11 +2,11 @@
 
     <!-- Page Heading -->
     <h1 class="h3 mb-2 text-gray-800">Danh Sách Sản Phẩm</h1>
-
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
         <div class="card-header py-3">
             <a class="btn btn-primary" href="?act=sanpham&&nd=addsp">Thêm Sản Phẩm <i class="bi bi-plus-circle"></i></a>
+            
         </div>
         <div class="card-body">
             <div class="table-responsive">
