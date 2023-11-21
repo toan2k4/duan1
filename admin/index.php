@@ -3,11 +3,14 @@ include("../model/pdo.php");
 include("../model/danhmuc.php");
 include("../model/sanpham.php");
 include("../model/thongke.php");
+include("../model/binhluan.php");
+include("../model/taikhoan.php");
+include("../model/bienthe.php");
 include("../global.php");
 include("include/header.php");
 
 $dsdm = loadAll_dm();
-$dssp = loadAll_sp();
+// $dssp = loadAll_sp();
 $isthongbao = '';
 $thongbao = '';
 if (isset($_GET['act']) && ($_GET['act'] != '')) {
@@ -68,13 +71,12 @@ if (isset($_GET['act']) && ($_GET['act'] != '')) {
                     if ($_SERVER['REQUEST_METHOD'] == "POST") {
                         $kyw = $_POST['keyword'];
                         $id_dm = $_POST['id_dm'];
-                    }else{
+
+                    } elseif (isset($_GET['id_dm'])) {
+                        $id_dm = $_GET['id_dm'];
+                    } else {
                         $kyw = '';
                         $id_dm = 0;
-                    }
-
-                    if (isset($_GET['id_dm'])) {
-                        $id_dm = $_GET['id_dm'];
                     }
 
                     $dssp = loadAll_sp($id_dm, $kyw);
@@ -163,7 +165,91 @@ if (isset($_GET['act']) && ($_GET['act'] != '')) {
                 }
             }
             break;
+        case 'binhluan':
+            if (isset($_GET['nd'])) {
+                if ($_GET['nd'] == 'list') {
+                    $ds = thongke_bl_sp();
+                    include('binhluan/list.php');
+                }
 
+
+                if ($_GET['nd'] == 'chitiet') {
+                    $dsbl = load_bl_sp($_GET['id_sp']);
+                    include("binhluan/chitiet.php");
+                }
+
+                if ($_GET['nd'] == 'delbl') {
+                    xoabl($_GET['idbl']);
+                    include("binhluan/chitiet.php");
+                }
+
+            }
+            break;
+        case 'taikhoan':
+            if (isset($_GET['nd'])) {
+                if ($_GET['nd'] == 'list') {
+                    $dstk = loadAll_tk();
+                    include('taikhoan/list.php');
+                }
+
+                if ($_GET['nd'] == 'khoa') {
+                    khoa_tk($_GET['idtk']);
+                    $dstk = loadAll_tk();
+                    include('taikhoan/list.php');
+                }
+
+                if ($_GET['nd'] == 'bokhoa') {
+                    bo_khoa_tk($_GET['idtk']);
+                    $dstk = loadAll_tk();
+                    include('taikhoan/list.php');
+                }
+
+            }
+            break;
+        case 'bienthe':
+            if (isset($_GET['nd'])) {
+                if ($_GET['nd'] == 'list') {
+                    $dsmau = loadAll_mau();
+                    $dssize = loadAll_size();
+                    include('bienthe/list.php');
+                }
+
+                if ($_GET['nd'] == 'add') {
+                    if ($_SERVER['REQUEST_METHOD'] == "POST") {
+                        $id_thuoc_tinh = $_POST["id_thuoc_tinh"];
+                        $name = $_POST["name"];
+                        if ($id_thuoc_tinh == 0) {
+                            $isthongbao = 0;
+                            $thongbao = 'Không thành công';
+                        } else {
+                            $isthongbao = 1;
+                            add_bt($name,$id_thuoc_tinh);
+                            $thongbao = ' Thêm thành công';
+                        }
+                        
+                    }
+                    include('bienthe/add.php');
+                }
+                if ($_GET['nd'] == 'edit') {
+                    if(isset($_GET['idbt'])){
+                        $bienthe = load_one_bt($_GET['idbt']);
+                    }
+                    include('bienthe/edit.php');
+                }
+                if ($_GET['nd'] == 'update') {
+                    if ($_SERVER['REQUEST_METHOD'] == "POST") {
+                        $id = $_POST["id"];
+                        $name = $_POST["name"];
+                        update_bt($id,$name);
+                    }
+                    $dsmau = loadAll_mau();
+                    $dssize = loadAll_size();
+                    include('bienthe/list.php');
+                }
+
+
+            }
+            break;
     }
 } else {
     include("include/home.php");
