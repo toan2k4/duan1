@@ -18,7 +18,23 @@
         return pdo_query_one($sql);
     }
     function update_bt($id,$name){
-        $sql ="UPDATE `giatri_thuotinh` SET `name`='$name' WHERE id=".$id;
+        $sql ="UPDATE giatri_thuotinh SET name='$name' WHERE id=".$id;
         return pdo_query_one($sql);
+    }
+
+    function add_thong_tin_sp($id_sp, $id_color, $id_size, $so_luong){
+        $sql = "INSERT INTO thong_tin_sp( id_sp, id_color, id_size, so_luong) 
+        VALUES ('$id_sp', '$id_color', '$id_size', '$so_luong')";
+        pdo_execute($sql);
+    }
+
+    function load_one_spbt($idsp){
+        $sql ="SELECT * FROM `thong_tin_sp` WHERE id_sp =".$idsp;
+        return pdo_query($sql);
+    }
+
+    function del_bt($id){
+        $sql ="DELETE FROM `thong_tin_sp` WHERE id=".$id;
+        pdo_execute($sql);
     }
 ?>

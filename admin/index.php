@@ -84,6 +84,7 @@ if (isset($_GET['act']) && ($_GET['act'] != '')) {
                 }
 
                 if ($_GET['nd'] == 'addsp') {
+                    
                     if ($_SERVER['REQUEST_METHOD'] == "POST") {
                         $ten_sp = $_POST["ten_sp"];
                         $giam_gia = $_POST["giam_gia"];
@@ -107,6 +108,9 @@ if (isset($_GET['act']) && ($_GET['act'] != '')) {
                                 move_uploaded_file($file_tmp, "../public/uploads/" . $file_name);
                             }
                         }
+
+
+
                         $isthongbao = 1;
                         $thongbao = ' Thêm thành công';
 
@@ -114,7 +118,21 @@ if (isset($_GET['act']) && ($_GET['act'] != '')) {
                     include('sanpham/add.php');
                 }
 
+                if ($_GET['nd'] == 'addbt') {
+                    if ($_SERVER['REQUEST_METHOD'] == "POST") {
+                        $id_sp = $_POST["id_sp"];
+                        $id_color = $_POST["id_color"];
+                        $id_size = $_POST["id_size"];
+                        $so_luong = $_POST["so_luong"];
+                        add_thong_tin_sp($id_sp, $id_color, $id_size, $so_luong);
+                    }
+                    echo "  <script>window.location.href ='index.php?act=sanpham&nd=editsp&idsp=$id_sp'</script> ";
+                    // header("location: index.php?act=sanpham&nd=editsp&idsp='.$id_sp.'");
+                }
                 if ($_GET['nd'] == 'editsp') {
+                    $dsmau = loadAll_mau();
+                    $dssize = loadAll_size();
+                    $spbt = load_one_spbt($_GET['idsp']);
                     $sp = load_one_sp($_GET['idsp']);
                     $hinh_phu = loadAll_hp($_GET['idsp']);
                     include('sanpham/edit.php');
@@ -163,6 +181,12 @@ if (isset($_GET['act']) && ($_GET['act'] != '')) {
                     xoasp($_GET['idsp']);
                     echo "  <script>window.location.href ='index.php?act=sanpham&nd=listsp'</script> ";
                 }
+
+                if ($_GET['nd'] == 'delbt') {
+                    del_bt($_GET['id']);
+                    echo "  <script>window.location.href ='index.php?act=sanpham&nd=editsp&idsp=".$_GET['idsp']."'</script> ";
+                }
+
             }
             break;
         case 'binhluan':
@@ -223,15 +247,15 @@ if (isset($_GET['act']) && ($_GET['act'] != '')) {
                             $thongbao = 'Không thành công';
                         } else {
                             $isthongbao = 1;
-                            add_bt($name,$id_thuoc_tinh);
+                            add_bt($name, $id_thuoc_tinh);
                             $thongbao = ' Thêm thành công';
                         }
-                        
+
                     }
                     include('bienthe/add.php');
                 }
                 if ($_GET['nd'] == 'edit') {
-                    if(isset($_GET['idbt'])){
+                    if (isset($_GET['idbt'])) {
                         $bienthe = load_one_bt($_GET['idbt']);
                     }
                     include('bienthe/edit.php');
@@ -240,7 +264,7 @@ if (isset($_GET['act']) && ($_GET['act'] != '')) {
                     if ($_SERVER['REQUEST_METHOD'] == "POST") {
                         $id = $_POST["id"];
                         $name = $_POST["name"];
-                        update_bt($id,$name);
+                        update_bt($id, $name);
                     }
                     $dsmau = loadAll_mau();
                     $dssize = loadAll_size();
@@ -250,6 +274,7 @@ if (isset($_GET['act']) && ($_GET['act'] != '')) {
 
             }
             break;
+
     }
 } else {
     include("include/home.php");
