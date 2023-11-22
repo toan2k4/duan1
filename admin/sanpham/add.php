@@ -57,9 +57,11 @@
                     <label for="exampleInputPassword1" class="form-label">Danh mục : </label>
                     <select class="form-control" aria-label="Default select example" name="danh_muc">
                         <option selected>-------- Chọn Danh Mục --------</option>
-                        <?php foreach ($dsdm as $key => $value) : ?>
+                        <?php foreach ($dsdm as $key => $value): ?>
 
-                            <option value="<?= $value['id_dm'] ?>"><?= $value['name_dm'] ?></option>
+                            <option value="<?= $value['id_dm'] ?>">
+                                <?= $value['name_dm'] ?>
+                            </option>
 
                         <?php endforeach ?>
                     </select>
@@ -69,12 +71,13 @@
 
         </div>
     </div>
+    
     <?php
     if ($isthongbao == 1) {
         echo "<div class='alert alert-success'>
         <strong>$thongbao</strong>
     </div>";
-    } else  if ($isthongbao == 0) {
+    } else if ($isthongbao == 0) {
         echo "<div class='alert alert-danger'>
         <strong>$thongbao</strong> Bạn Chưa Điền Tên Danh Mục .
       </div>";

@@ -5,9 +5,7 @@
 
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
-        <div class="card-header py-3">
-            <a class="btn btn-primary" href="?act=danhmuc&&nd=adddm">Thêm Danh Mục <i class="bi bi-plus-circle"></i></a>
-        </div>
+       
         <div class="card-body">
             <div class="table-responsive">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
@@ -62,13 +60,8 @@
 
 
                 </table>
-                <a href="" type="reset" class="btn btn-secondary">Bỏ Chọn Tất Cả </a>
-                <a href="" type="button" class="btn btn-success">Chọn Tất Cả</a>
-                <a type="button" class="btn btn-warning" onclick="return confirm('Bạn có muốn xóa không ?')">Xóa Các Mục
-                    Đã Chọn</a>
-                <a href="" onclick="return confirm('Bạn có muốn xóa không ?')" type="button" class="btn btn-danger">Xóa
-                    Tất Cả</a>
-                <a href="" type="button" class="btn btn-info">Số Lượng Sản Phẩm</a>
+                
+                <a href="?act=binhluan&nd=list" type="button" class="btn btn-info">Quay lại</a>
                 </form>
             </div>
         </div>
