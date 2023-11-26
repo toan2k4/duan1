@@ -8,8 +8,8 @@
         return pdo_query($sql);
     }
 
-    function add_bt($name,$id_thuoc_tinh){
-        $sql = "INSERT INTO giatri_thuotinh(name, id_thuoctinh) VALUES ('$name','$id_thuoc_tinh')";
+    function add_bt($name, $ma_mau, $id_thuoc_tinh){
+        $sql = "INSERT INTO giatri_thuotinh(name, ma_mau, id_thuoctinh) VALUES ('$name', '$ma_mau,'$id_thuoc_tinh')";
         pdo_execute($sql);
     }
 
@@ -17,9 +17,9 @@
         $sql ="SELECT * FROM giatri_thuotinh WHERE id=".$id;
         return pdo_query_one($sql);
     }
-    function update_bt($id,$name){
-        $sql ="UPDATE giatri_thuotinh SET name='$name' WHERE id=".$id;
-        return pdo_query_one($sql);
+    function update_bt($id,$ma_mau,$name){
+        $sql ="UPDATE giatri_thuotinh SET name='$name',ma_mau='$ma_mau' WHERE id=".$id;
+         pdo_execute($sql);
     }
 
     function add_thong_tin_sp($id_sp, $id_color, $id_size, $so_luong){
@@ -29,7 +29,7 @@
     }
 
     function load_one_spbt($idsp){
-        $sql ="SELECT * FROM `thong_tin_sp` WHERE id_sp =".$idsp;
+        $sql ="SELECT * FROM `thong_tin_sp` WHERE id_sp ='$idsp' order by id desc";
         return pdo_query($sql);
     }
 

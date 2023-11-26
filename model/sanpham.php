@@ -11,6 +11,21 @@ function loadAll_sp($id_dm = 0, $kyw = '')
     $sql .= " ORDER BY id_sp desc";
     return pdo_query($sql);
 }
+
+function loadAll_sp_popular()
+{
+    $sql = "SELECT * FROM sanpham  ORDER BY so_luot_xem desc ";
+    
+    return pdo_query($sql);
+}
+function loadAll_sp_sale()
+{
+    $sql = "SELECT * FROM sanpham  ORDER BY giam_gia desc LIMIT 1,8";
+    return pdo_query($sql);
+}
+
+
+
 function loadAll_hp($id)
 {
     $sql = "SELECT * FROM hinh_anh WHERE id_sp = $id";
@@ -34,7 +49,7 @@ function add_sp($ten_sp, $hinh_sp, $giam_gia, $gia, $mo_ta, $ngay_nhap, $gioi_ti
 function update_sp($id, $ten_sp, $hinh_sp, $giam_gia, $gia, $mo_ta, $ngay_nhap, $gioi_tinh, $id_dm, $trang_thai = 0)
 {
     $sql = "UPDATE sanpham SET ten_sp='$ten_sp',hinh_sp='$hinh_sp',giam_gia='$giam_gia',gia='$gia',mo_ta='$mo_ta',ngay_nhap='$ngay_nhap',gioi_tinh='$gioi_tinh',id_dm='$id_dm',trang_thai='$trang_thai' WHERE id_sp=".$id;
-    // pdo_execute($sql);
+    pdo_execute($sql);
 }
 
 function xoasp($id)
@@ -45,7 +60,6 @@ function xoasp($id)
 function xoaimgsp($id)
 {
     $sql = " DELETE FROM hinh_anh  WHERE id_sp = $id";
-    
     pdo_query($sql);
 }
 

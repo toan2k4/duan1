@@ -17,7 +17,7 @@
                 </div>
                 <div class="mb-3">
                     <label for="exampleInputPassword1" class="form-label">Loại biến thể</label>
-                    <select class="form-control" aria-label="Default select example" name="id_thuoc_tinh">
+                    <select class="form-control loai_bt" aria-label="Default select example" name="id_thuoc_tinh">
                         <option value="0" selected>-------- Chọn loại biến thể --------</option>
                         <option value="1">Màu sắc</option>
                         <option value="2">Size</option>
@@ -28,7 +28,10 @@
                     <label for="pwd" class="form-label">Tên biến thể:</label>
                     <input type="text" class="form-control" id="pwd" placeholder="Nhập tên thuộc tính biến thể" name="name" required>
                 </div>
-
+                <div class="mb-3 mau d-none">
+                    <label for="pwd" class="form-label">Mã màu:</label>
+                    <input type="color" class="form-control ma_mau" id="pwd" name="ma_mau" required>
+                </div>
                 <input type="submit" class="btn btn-primary" value="Thêm Mới" name="gui">
             </form>
 
@@ -47,4 +50,15 @@
         echo '' ;
     }
     ?>
+    <script>
+        const loai =document.querySelector('.loai_bt');
+        const mau =document.querySelector('.mau');
+        const ma_mau =document.querySelector('.ma_mau');
+        loai.onchange =function (){
+            mau.classList.add('d-none');
+            if(loai.value == 1){
+                mau.classList.remove('d-none');
+            }
+        }
+    </script>
 </div>

@@ -149,16 +149,20 @@ if (isset($_GET['act']) && ($_GET['act'] != '')) {
                         $gioi_tinh = $_POST["gt"];
                         $id_dm = $_POST["dm"];
                         $hinh_sp = $_POST["hinh_sp"];
+                        
                         $file = $_FILES["hinh_sp"];
                         if ($file['size'] > 0) {
+                            unlink("../".$img_path.$hinh_sp);
                             $hinh_sp = $file["name"];
                             move_uploaded_file($file["tmp_name"], "../" . $img_path . $hinh_sp);
+                            
                         }
+                        
                         update_sp($id_sp, $ten_sp, $hinh_sp, $giam_gia, $gia, $mo_ta, $ngay_nhap, $gioi_tinh, $id_dm);
 
 
                         if (isset($_FILES['hinh_phu'])) {
-                            if (!empty($_FILES['hinh_phu'])) {
+                            if (!empty($_FILES['hinh_phu']['name'][0])) {
                                 xoaimgsp($id_sp);
                                 foreach ($_FILES['hinh_phu']['tmp_name'] as $key => $value) {
                                     $file_name = $_FILES['hinh_phu']['name'][$key];
@@ -242,18 +246,25 @@ if (isset($_GET['act']) && ($_GET['act'] != '')) {
                     if ($_SERVER['REQUEST_METHOD'] == "POST") {
                         $id_thuoc_tinh = $_POST["id_thuoc_tinh"];
                         $name = $_POST["name"];
+                        $ma_mau = $_POST["ma_mau"];
+
                         if ($id_thuoc_tinh == 0) {
                             $isthongbao = 0;
                             $thongbao = 'Không thành công';
                         } else {
                             $isthongbao = 1;
-                            add_bt($name, $id_thuoc_tinh);
+                            if($id_thuoc_tinh == 2){
+                                $ma_mau = '';
+                            }
+                            add_bt($name, $ma_mau, $id_thuoc_tinh);
                             $thongbao = ' Thêm thành công';
                         }
 
                     }
                     include('bienthe/add.php');
                 }
+
+                
                 if ($_GET['nd'] == 'edit') {
                     if (isset($_GET['idbt'])) {
                         $bienthe = load_one_bt($_GET['idbt']);
@@ -264,7 +275,8 @@ if (isset($_GET['act']) && ($_GET['act'] != '')) {
                     if ($_SERVER['REQUEST_METHOD'] == "POST") {
                         $id = $_POST["id"];
                         $name = $_POST["name"];
-                        update_bt($id, $name);
+                        $ma_mau = $_POST["ma_mau"];
+                        update_bt($id, $ma_mau, $name);
                     }
                     $dsmau = loadAll_mau();
                     $dssize = loadAll_size();
