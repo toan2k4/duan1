@@ -51,10 +51,11 @@
                 <div class="mb-3 mt-3">
                     <label for="email" class="form-label">Ảnh Mô Tả:</label>
                     <input class="form-control" type="file" name="hinh_phu[]" multiple="multiple">
-                    <?php foreach ($hinh_phu as $key => $value): ?>
+                    <?php foreach ($hinh_phu as $key => $value):?>
+                       
                         <img src="../public/uploads/<?= $value['hinh_anh'] ?>" class="rounded" alt="Cinque Terre"
                             width="250">
-                    <?php endforeach ?>
+                    <?php endforeach;  ?>
                 </div>
                 <div class="mb-3">
                     <label for="exampleInputPassword1" class="form-label">Giới Tính</label>

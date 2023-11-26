@@ -10,7 +10,7 @@
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Favicon -->
-    <link rel="shortcut icon" type="image/x-icon" href="public/assets/images/favicon.ico">
+    <link rel="shortcut icon" type="image/x-icon" href="public/assets/images/logo1.png">
     
     <!-- CSS
 	============================================ -->
@@ -28,7 +28,7 @@
     <link rel="stylesheet" href="public/assets/css/helper.css">
     
     <!-- Main Style CSS -->
-    <link rel="stylesheet" href="public/assets/css/style.css">
+    <link rel="stylesheet" href="public/assets/css/css.css">
     
     <!-- Modernizer JS -->
     <script src="public/assets/js/vendor/modernizr-3.11.2.min.js"></script>
@@ -102,8 +102,8 @@
                     <div class="col mt-15 mb-15">
                         <!-- Logo Start -->
                         <div class="header-logo">
-                            <a href="index.html">
-                                <img src="public/assets/images/logo.png" alt="Jadusona">
+                            <a href="index.php">
+                                <!-- <img src="public/assets/images/logo1.png" alt="Jadusona"> -->
                             </a>
                         </div><!-- Logo End -->
                     </div>
@@ -141,29 +141,29 @@
                                     </li>
                                     <li><a href="shop.html">Danh mục</a>
                                         <ul class="sub-menu">
-                                            <li><a href="shop.html">Shop</a></li>
-                                            <li><a href="shop-left-sidebar.html">Shop Left Sidebar</a></li>
-                                            <li><a href="shop-right-sidebar.html">Shop Right Sidebar</a></li>
-                                            <li><a href="single-product.html">Single Product</a></li>
-                                            <li><a href="single-product-left-sidebar.html">Single Product Left Sidebar</a></li>
-                                            <li><a href="single-product-right-sidebar.html">Single Product Right Sidebar</a></li>
+                                            <li><a href="?act=shop">đồ chơi</a></li>
+                                            <li><a href="">Shop Left Sidebar</a></li>
+                                            <li><a href="">Shop Right Sidebar</a></li>
+                                            <li><a href="">Single Product</a></li>
+                                            <li><a href="">Single Product Left Sidebar</a></li>
+                                            <li><a href="">Single Product Right Sidebar</a></li>
                                         </ul>
                                     </li>
                                     <li><a href="#">Bé trai</a>
-                                        <ul class="sub-menu">
+                                        <!-- <ul class="sub-menu">
                                             <li><a href="cart.html">Cart</a></li>
                                             <li><a href="checkout.html">Checkout</a></li>
                                             <li><a href="login-register.html">Login & Register</a></li>
                                             <li><a href="my-account.html">My Account</a></li>
                                             <li><a href="wishlist.html">Wishlist</a></li>
                                             <li><a href="404.html">404 Error</a></li>
-                                        </ul>
+                                        </ul> -->
                                     </li>
                                     <li><a href="blog.html">Bé gái</a>
-                                        <ul class="sub-menu">
+                                        <!-- <ul class="sub-menu">
                                             <li><a href="blog.html">Blog</a></li>
                                             <li><a href="single-blog.html">Single Blog</a></li>
-                                        </ul>
+                                        </ul> -->
                                     </li>
                                     <li><a href="contact.html">CONTACT</a></li>
                                 </ul>
