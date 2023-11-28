@@ -1,8 +1,11 @@
 <?php
+session_start();
+ob_start();
 include ('model/pdo.php');
 include ('model/sanpham.php');
 include ('model/bienthe.php');
 include ('model/danhmuc.php');
+include ('model/taikhoan.php');
 include ('model/binhluan.php');
 include ('model/thongke.php');
 include ('global.php');
@@ -38,11 +41,29 @@ if (isset($_GET['act']) && ($_GET['act'] != '')) {
             include('view/checkout.php');
             break;
         case 'login':
-            
+            if(isset($_GET['nd'])){
+                if($_GET['nd'] == 'login'){
+                    if($_SERVER['REQUEST_METHOD'] == 'POST'){
+                        $check_user = dangnhap($_POST['email'], $_POST['pass']);
+                        
+                        if(is_array($check_user)){
+                            $_SESSION['user'] = $check_user;
+                            header('location: index.php');
+                        }else{
+                            $thongbao = "Đăng nhập thất bại";
+                        }
+                    }
+                }
+
+                if($_GET['nd'] == 'logout'){
+                    dangxuat();
+                    header("location: index.php");
+                }
+            }
             include('view/login&register.php');
             break;
         case 'account':
-            include('view/account.php');
+            include('view/myaccount.php');
             break;
         case 'shop':
             if(isset($_GET['nd'])){

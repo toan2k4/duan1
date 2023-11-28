@@ -19,4 +19,12 @@ function dangnhap($email, $pass)
     $taikhoan = pdo_query_one($sql);
     return $taikhoan;
 }
+
+function dangxuat()
+{
+    if (isset($_SESSION['user'])) {
+        unset($_SESSION['user']);
+    }
+    
+}
 ?>
