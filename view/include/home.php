@@ -101,6 +101,7 @@
             $i = 0;
             foreach ($ds_popular as $ds) {
                 extract($ds);
+                $gia_new = number_format(($ds['gia'] - ($ds['gia'] * ($ds['giam_gia'] / 100))),1);
                 $hinh = $img_path . $hinh_sp;
                 if($i == 8){
                     break;
@@ -141,28 +142,45 @@
 
                                     <h5 class="size">Size:
                                         <?php
+                                        $check = [];
                                         $spbt = load_one_spbt($id_sp);
+                                        
                                         foreach ($spbt as $sp) {
                                             extract($sp);
-                                            $mau = load_one_bt($id_color);
                                             $size = load_one_bt($id_size);
-                                            echo '<span>' . $size['name'] . '</span>';
-                                        } ?>
+                                        
+                                            if (!in_array($size['id'], $check)) {
+                                                echo '<span>' . $size['name'] . '</span>';
+                                                $check[] = $size['id'];
+                                            }
+                                        
+                                        }
+                                        ?>
                                     </h5>
                                     <h5 class="color">Color:
-                                        <?php $spbt = load_one_spbt($id_sp);
+                                        <?php
+                                        $check = [];
+                                        $spbt = load_one_spbt($id_sp);
+                                        
                                         foreach ($spbt as $sp) {
                                             extract($sp);
                                             $mau = load_one_bt($id_color);
-                                            echo '<span style="background-color: ' . $mau['ma_mau'] . '"></span>';
-                                        } ?>
+                                        
+                                            if (!in_array($mau['id'], $check)) {
+                                                echo '<span style="background-color: ' . $mau['ma_mau'] . '"></span>';
+                                                $check[] = $mau['id'];
+                                            }
+                                        
+                                        }
+                                         ?>
                                     </h5>
 
                                 </div>
 
                                 <div class="content-right">
                                     <span class="price">$
-                                        <?= $gia ?>
+                                        <?= $gia_new ?>
+                                        <span class="old">$<?=$gia?></span>
                                     </span>
                                 </div>
 

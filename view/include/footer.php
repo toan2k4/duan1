@@ -121,7 +121,7 @@
 <!-- Plugins JS -->
 <script src="public/assets/js/plugins.js"></script>
 <!-- Main JS -->
-<script src="public/assets/js/test.js"></script>
+<script src="public/assets/js/main.js"></script>
 
 </body>
 

@@ -103,7 +103,7 @@
                         <!-- Logo Start -->
                         <div class="header-logo">
                             <a href="index.php">
-                                <!-- <img src="public/assets/images/logo1.png" alt="Jadusona"> -->
+                                <img src="public/assets/images/logo2.jpg" alt="Jadusona">
                             </a>
                         </div><!-- Logo End -->
                     </div>
@@ -115,9 +115,9 @@
                             <div class="header-search">
                                 <button class="search-toggle"><img src="public/assets/images/icons/search.png" alt="Search Toggle"><img class="toggle-close" src="public/assets/images/icons/close.png" alt="Search Toggle"></button>
                                 <div class="header-search-wrap">
-                                    <form action="#">
-                                        <input type="text" placeholder="Type and hit enter">
-                                        <button><img src="public/assets/images/icons/search.png" alt="Search"></button>
+                                    <form action="?act=shop&nd=danhmuc" method="post">
+                                        <input type="text" placeholder="Type and hit enter" name="kyw">
+                                        <button type="submit"><img src="public/assets/images/icons/search.png" alt="Search"></button>
                                     </form>
                                 </div>
                             </div>
@@ -137,19 +137,23 @@
                         <div class="main-menu">
                             <nav>
                                 <ul>
-                                    <li class="active"><a href="index.html">HOME</a>
+                                    <li class="active"><a href="index.php">HOME</a>
                                     </li>
-                                    <li><a href="shop.html">Danh mục</a>
+                                    <li><a href="?act=shop&nd=danhmuc">Danh mục</a>
                                         <ul class="sub-menu">
-                                            <li><a href="?act=shop">đồ chơi</a></li>
-                                            <li><a href="">Shop Left Sidebar</a></li>
+                                            <?php 
+                                            
+                                            foreach($ds_dm as $dm){?>
+                                            <li><a href="?act=shop&nd=danhmuc&id_dm=<?=$dm['id_dm']?>"><?=$dm['name_dm']?></a></li>
+                                            <?php }?>
+                                            <!-- <li><a href="">Shop Left Sidebar</a></li>
                                             <li><a href="">Shop Right Sidebar</a></li>
                                             <li><a href="">Single Product</a></li>
                                             <li><a href="">Single Product Left Sidebar</a></li>
-                                            <li><a href="">Single Product Right Sidebar</a></li>
+                                            <li><a href="">Single Product Right Sidebar</a></li> -->
                                         </ul>
                                     </li>
-                                    <li><a href="#">Bé trai</a>
+                                    <li><a href="?act=shop&nd=gioi_tinh&id_sex= 0">Bé trai</a>
                                         <!-- <ul class="sub-menu">
                                             <li><a href="cart.html">Cart</a></li>
                                             <li><a href="checkout.html">Checkout</a></li>
@@ -159,13 +163,13 @@
                                             <li><a href="404.html">404 Error</a></li>
                                         </ul> -->
                                     </li>
-                                    <li><a href="blog.html">Bé gái</a>
+                                    <li><a href="?act=shop&nd=gioi_tinh&id_sex=1">Bé gái</a>
                                         <!-- <ul class="sub-menu">
                                             <li><a href="blog.html">Blog</a></li>
                                             <li><a href="single-blog.html">Single Blog</a></li>
                                         </ul> -->
                                     </li>
-                                    <li><a href="contact.html">CONTACT</a></li>
+                                    <li><a href="?act=shop&nd=danhmuc">Shop</a></li>
                                 </ul>
                             </nav>
                         </div>

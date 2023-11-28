@@ -282,8 +282,6 @@ if (isset($_GET['act']) && ($_GET['act'] != '')) {
                     $dssize = loadAll_size();
                     include('bienthe/list.php');
                 }
-
-
             }
             break;
 
