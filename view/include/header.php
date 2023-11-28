@@ -83,10 +83,11 @@
                     <div class="col mt-10 mb-10">
                         <!-- Header Shop Links Start -->
                         <div class="header-top-right">
-
-                            <p><a href="my-account.html">My Account</a></p>
-                            <p><a href="login-register.html">Register</a><a href="login-register.html">Login</a></p>
-
+                            <?php if(isset($_SESSION['user'])){?>
+                            <p><a href="?act=account">My Account</a></p>
+                            <?php }else{?>
+                            <p><a href="?act=login">Register</a><a href="?act=login">Login</a></p>
+                            <?php }?>
                         </div><!-- Header Shop Links End -->
                     </div>
 
