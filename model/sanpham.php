@@ -11,6 +11,10 @@ function loadAll_sp($id_dm = 0, $kyw = '')
     $sql .= " ORDER BY id_sp desc";
     return pdo_query($sql);
 }
+function loadAll_splq($id_sp, $id_dm){
+    $sql = "SELECT * FROM sanpham WHERE id_dm = $id_dm and id_sp <> $id_sp";
+    return pdo_query($sql);
+}
 
 function loadAll_sp_popular()
 {
@@ -67,5 +71,31 @@ function add_img($id_sp, $hinh_anh)
 {
   $sql = " INSERT INTO hinh_anh(id_sp, hinh_anh) VALUES ('$id_sp','$hinh_anh')";
   pdo_execute($sql);
+}
+
+
+function load_sp_ma_mau($id){
+    $sql = "SELECT  id_sp
+    FROM thuoc_tinh 
+    JOIN giatri_thuotinh ON thuoc_tinh.id = giatri_thuotinh.id_thuoctinh 
+    JOIN thong_tin_sp ON thong_tin_sp.id_color = giatri_thuotinh.id
+    WHERE giatri_thuotinh.id_thuoctinh =1 and giatri_thuotinh.id=$id
+    GROUP BY id_sp";
+    return pdo_query($sql);
+}
+
+function load_sp_id($id){
+    $sql ="SELECT * FROM sanpham WHERE id_sp in ($id)";
+    return pdo_query($sql);
+}
+
+function load_sp_price($price1 , $price2){
+    $sql ="SELECT * FROM sanpham WHERE gia > $price1 and gia < $price2";
+    return pdo_query($sql);
+}
+
+function load_sp_sex($id){
+    $sql ="SELECT * FROM sanpham WHERE gioi_tinh = $id";
+    return pdo_query($sql);
 }
 ?>

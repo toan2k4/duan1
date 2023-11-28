@@ -445,8 +445,8 @@ $('.nice-select').niceSelect()
 $('#price-range').slider({
    range: true,
    min: 0,
-   max: 2000,
-   values: [ 250, 1670 ],
+   max: 200,
+   values: [ 10, 160 ],
    slide: function (event, ui) {
     $('#price-amount').val('$' + ui.values[0] + '  -  $' + ui.values[1]);
     $('#getprice-amount1').val( ui.values[0] );

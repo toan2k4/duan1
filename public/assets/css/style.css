@@ -3346,7 +3346,7 @@ img.mfp-img {
   background-color: #ffffff;
   -webkit-transition: all 0.3s ease 0s;
   transition: all 0.3s ease 0s;
-  padding: 20px 0;
+  padding: 20px;
   position: absolute;
   left: 0;
   width: 100%;
@@ -3419,8 +3419,8 @@ img.mfp-img {
 }
 .product-item .product-inner .content .content-right {
   -webkit-box-flex: 0;
-      -ms-flex: 0 0 50px;
-          flex: 0 0 50px;
+      -ms-flex: 0 0 60px;
+          flex: 0 0 60px;
   text-align: right;
 }
 .product-item .product-inner .content .content-right .price {
@@ -5161,6 +5161,7 @@ img.mfp-img {
   color: #ff708a;
   font-weight: 600;
 }
+.old_spct,
 .sidebar-product .content .price .old {
   color: #94c7eb;
   position: relative;
