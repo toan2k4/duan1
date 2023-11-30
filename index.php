@@ -94,6 +94,7 @@ if (isset($_SESSION['user']) && $_SESSION['user']['roles'] == '1') {
                     $file = $_FILES['image_tk'];
 
                     if ($file['size'] > 0) {
+                        unlink($img_path . $image_tk);
                         $image_tk = $file['name'];
                         move_uploaded_file($file['tmp_name'], $img_path . $image_tk);
                     }
@@ -102,6 +103,7 @@ if (isset($_SESSION['user']) && $_SESSION['user']['roles'] == '1') {
                             if ($repass == $passnew) {
                                 update_tk($id_tk, $name_tk, $passnew, $image_tk, $full_name, $email, $phone, $dia_chi);
                                 $_SESSION['user'] = load_one_tk($id_tk);
+                                header('location: index.php?act=account');
                             } else {
                                 $errors[] = 'password nhập lại không đúng với password mới';
                             }
@@ -110,6 +112,8 @@ if (isset($_SESSION['user']) && $_SESSION['user']['roles'] == '1') {
                         }
                     }else{
                         update_tk($id_tk, $name_tk, $passnew = '', $image_tk, $full_name, $email, $phone, $dia_chi);
+                        $_SESSION['user'] = load_one_tk($id_tk);
+                        header('location: index.php?act=account');
                     }
 
                 }

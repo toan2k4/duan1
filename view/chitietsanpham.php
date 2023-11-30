@@ -67,11 +67,13 @@
                                     </h3>
 
                                     <div class="ratting">
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star-half-o"></i>
-                                        <i class="fa fa-star-o"></i>
+                                        <?php for ($i = 1; $i <= 5; $i++) {
+                                            if ($i <= $sp['danh_gia']) {
+                                                echo '<i class="fa fa-star"></i>';
+                                            } else {
+                                                echo '<i class="fa fa-star-o"></i>';
+                                            }
+                                        } ?>
                                     </div>
 
                                 </div>
@@ -97,7 +99,7 @@
 
                                 <div class="quantity">
                                     <h5>Quantity:</h5>
-                                    <div class="pro-qty"><input type="text" value="1" ></div>
+                                    <div class="pro-qty"><input type="text" value="1"></div>
                                 </div>
 
                                 <div class="colors">
@@ -168,8 +170,8 @@
 
                                     }
                                 }
-                                
-                                
+
+
 
                             </script>
                             <div class="actions">
@@ -330,6 +332,7 @@
                                                                     <script>
                                                                         const stars = document.querySelectorAll('.ratting-send');
                                                                         const getdatadanhgia = document.querySelector('#danhgia');
+
                                                                         for (const star of stars) {
                                                                             star.onclick = function () {
                                                                                 const clickedData = parseInt(star.getAttribute('data'));

@@ -101,9 +101,9 @@
             $i = 0;
             foreach ($ds_popular as $ds) {
                 extract($ds);
-                $gia_new = number_format(($ds['gia'] - ($ds['gia'] * ($ds['giam_gia'] / 100))),1);
+                $gia_new = number_format(($ds['gia'] - ($ds['gia'] * ($ds['giam_gia'] / 100))), 1);
                 $hinh = $img_path . $hinh_sp;
-                if($i == 8){
+                if ($i == 8) {
                     break;
                 }
                 ?>
@@ -133,27 +133,34 @@
                                         </a></h4>
 
                                     <div class="ratting">
-                                        <i class="fa fa-star"></i>
+                                        <?php for ($i = 1; $i <= 5; $i++) {
+                                            if ($i <= $danh_gia) {
+                                                echo '<i class="fa fa-star"></i>';
+                                            } else {
+                                                echo '<i class="fa fa-star-o"></i>';
+                                            }
+                                        } ?>
+                                        <!-- <i class="fa fa-star"></i>
                                         <i class="fa fa-star"></i>
                                         <i class="fa fa-star"></i>
                                         <i class="fa fa-star-half-o"></i>
-                                        <i class="fa fa-star-o"></i>
+                                        <i class="fa fa-star-o"></i> -->
                                     </div>
 
                                     <h5 class="size">Size:
                                         <?php
                                         $check = [];
                                         $spbt = load_one_spbt($id_sp);
-                                        
+
                                         foreach ($spbt as $sp) {
                                             extract($sp);
                                             $size = load_one_bt($id_size);
-                                        
+
                                             if (!in_array($size['id'], $check)) {
                                                 echo '<span>' . $size['name'] . '</span>';
                                                 $check[] = $size['id'];
                                             }
-                                        
+
                                         }
                                         ?>
                                     </h5>
@@ -161,18 +168,18 @@
                                         <?php
                                         $check = [];
                                         $spbt = load_one_spbt($id_sp);
-                                        
+
                                         foreach ($spbt as $sp) {
                                             extract($sp);
                                             $mau = load_one_bt($id_color);
-                                        
+
                                             if (!in_array($mau['id'], $check)) {
                                                 echo '<span style="background-color: ' . $mau['ma_mau'] . '"></span>';
                                                 $check[] = $mau['id'];
                                             }
-                                        
+
                                         }
-                                         ?>
+                                        ?>
                                     </h5>
 
                                 </div>
@@ -180,7 +187,9 @@
                                 <div class="content-right">
                                     <span class="price">$
                                         <?= $gia_new ?>
-                                        <span class="old">$<?=$gia?></span>
+                                        <span class="old">$
+                                            <?= $gia ?>
+                                        </span>
                                     </span>
                                 </div>
 
@@ -190,7 +199,8 @@
                     </div>
 
                 </div>
-            <?php $i++; } ?>
+                <?php $i++;
+            } ?>
             <!-- <div class="col-xl-3 col-lg-4 col-md-6 col-12 mb-40">
 
                 <div class="product-item">
@@ -367,49 +377,56 @@
                 </div>
 
                 <div class="best-deal-slider w-100">
-                <?php
-                $i = 0;
+                    <?php
+                    $i = 0;
                     foreach ($ds_sp_sale as $sp) {
                         extract($sp);
                         $hinh = $img_path . $hinh_sp;
                         $gia_new = $gia - ($gia * ($giam_gia / 100));
-                        if($i == 2){
-                            break;  
+                        if ($i == 2) {
+                            break;
                         }
                         ?>
-                    <div class="slide-item">
-                        <div class="best-deal-product">
+                        <div class="slide-item">
+                            <div class="best-deal-product">
 
-                            <div class="image"><img src="<?= $hinh?>" alt="Image" style="width: 370px; height: 547px;">
-                            </div>
+                                <div class="image"><img src="<?= $hinh ?>" alt="Image" style="width: 370px; height: 547px;">
+                                </div>
 
-                            <div class="content-top">
+                                <div class="content-top">
 
-                                <div class="content-top-left">
-                                    <h4 class="title"><a href="#"><?=$ten_sp?></a></h4>
-                                    <div class="ratting">
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star-half-o"></i>
+                                    <div class="content-top-left">
+                                        <h4 class="title"><a href="#">
+                                                <?= $ten_sp ?>
+                                            </a></h4>
+                                        <div class="ratting">
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star-half-o"></i>
+                                        </div>
                                     </div>
+
+                                    <div class="content-top-right">
+                                        <span class="price">
+                                            <?= $gia_new ?> <span class="old">
+                                                <?= $gia ?>
+                                            </span>
+                                        </span>
+                                    </div>
+
                                 </div>
 
-                                <div class="content-top-right">
-                                    <span class="price"><?= $gia_new?> <span class="old"><?= $gia?></span></span>
+                                <div class="content-bottom">
+                                    <div class="countdown" data-countdown="2023/06/20"></div>
+                                    <a href="?act=spct&id_sp=<?= $id_sp ?>" data-hover="SHOP NOW">SHOP NOW</a>
                                 </div>
 
                             </div>
-
-                            <div class="content-bottom">
-                                <div class="countdown" data-countdown="2023/06/20"></div>
-                                <a href="?act=spct&id_sp=<?=$id_sp?>" data-hover="SHOP NOW">SHOP NOW</a>
-                            </div>
-
                         </div>
-                    </div>
-                    <?php $i++; }?>
+                        <?php $i++;
+                    } ?>
                     <!-- <div class="slide-item">
                         <div class="best-deal-product">
 
@@ -466,8 +483,8 @@
                         <div class="col mb-40">
 
                             <div class="on-sale-product">
-                                <a href="single-product.html" class="image"><img
-                                        src="<?=$hinh?>" alt="Image" style="width: 174px; height: 174px;"></a>
+                                <a href="single-product.html" class="image"><img src="<?= $hinh ?>" alt="Image"
+                                        style="width: 174px; height: 174px;"></a>
                                 <div class="content text-center">
                                     <h4 class="title"><a href="?act=spct&id_sp=<?= $id_sp ?>">
                                             <?= $ten_sp ?>
