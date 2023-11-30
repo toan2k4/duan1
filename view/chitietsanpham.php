@@ -97,7 +97,7 @@
 
                                 <div class="quantity">
                                     <h5>Quantity:</h5>
-                                    <div class="pro-qty"><input type="text" value="1"></div>
+                                    <div class="pro-qty"><input type="text" value="1" ></div>
                                 </div>
 
                                 <div class="colors">
@@ -110,9 +110,8 @@
                                         foreach ($spbt as $sp) {
                                             extract($sp);
                                             $mau = load_one_bt($id_color);
-
                                             if (!in_array($mau['id'], $check)) {
-                                                echo '<button style="background-color:' . $mau['ma_mau'] . '"></button>';
+                                                echo '<button class="color" value="' . $mau['id'] . '" style="background-color:' . $mau['ma_mau'] . '"></button>';
                                                 $check[] = $mau['id'];
                                             }
 
@@ -132,9 +131,8 @@
                                         foreach ($spbt as $sp) {
                                             extract($sp);
                                             $size = load_one_bt($id_size);
-
                                             if (!in_array($size['id'], $check)) {
-                                                echo '<button class="size me-2" value="4">' . $size['name'] . '</button>';
+                                                echo '<button class="size me-2" value="' . $size['id'] . '">' . $size['name'] . '</button>';
                                                 $check[] = $size['id'];
                                             }
 
@@ -146,8 +144,11 @@
                             </div>
                             <script>
                                 const sizes = document.querySelectorAll('.size');
+
+
                                 for (const size of sizes) {
                                     size.onclick = function () {
+
                                         for (var i = 0; i < sizes.length; i++) {
                                             sizes[i].classList.remove('selected-size');
                                         }
@@ -155,10 +156,27 @@
                                         document.getElementById('selectedSizeInput').value = size.value;
                                     }
                                 }
+                                const colors = document.querySelectorAll('.color');
+                                for (const color of colors) {
+                                    color.onclick = function () {
+
+                                        for (var i = 0; i < colors.length; i++) {
+                                            colors[i].style.border = "none";
+                                        }
+                                        color.style.border = "2px solid";
+                                        document.getElementById('selectedColorInput').value = color.value;
+
+                                    }
+                                }
+                                
+                                
+
                             </script>
                             <div class="actions">
                                 <form action="">
                                     <input type="hidden" name="size" id="selectedSizeInput">
+                                    <input type="hidden" name="color" id="selectedColorInput">
+                                    <input type="hidden" name="quantity" id="quantity">
                                     <button><i class="ti-shopping-cart"></i><span>ADD TO CART</span></button>
                                 </form>
                                 <button class="box" data-tooltip="Compare"><i class="ti-control-shuffle"></i></button>
@@ -231,114 +249,140 @@
                                     </table>
                                 </div> -->
                         <div class="pro-info-tab tab-pane" id="reviews">
-                          
+
                             <!-- bình luận  -->
                             <section style="background-color: #eee;">
                                 <div class="container my-5 py-5">
                                     <div class="row d-flex justify-content-center">
                                         <div class="col-md-12 col-lg-10 col-xl-8">
                                             <div class="card">
-                                                <?php foreach($ds_bl as $bl){
+                                                <?php foreach ($ds_bl as $bl) {
                                                     extract($bl);
-                                                    $anh = $img_path.$image_tk;
-                                                ?>
-                                                <div class="card-body">
-                                                    <div class="d-flex flex-start align-items-center">
-                                                        <img class="rounded-circle shadow-1-strong me-3"
-                                                            src="<?=$anh?>"
-                                                            alt="avatar" width="60" height="60" />
-                                                        <div>
-                                                            <h6 class="fw-bold text-primary mb-1"><?=$name_tk?></h6>
-                                                            <p class="text-muted small mb-0">
-                                                                Shared publicly / <?=$ngaybinhluan?>
-                                                            </p>
-                                                            <div class="ratting">
-                                                                <?php for ($i=1; $i <= 5; $i++) { 
-                                                                   if($i <= $danh_gia){
-                                                                        echo '<i class="fa fa-star"></i>';
-                                                                   }else{
-                                                                        echo '<i class="fa fa-star-o"></i>';
-                                                                   }
-                                                                }?>
-                                                                
-                                                                
-                                                            </div>
-                                                        </div>
-                                                    </div>
+                                                    $anh = $img_path . $image_tk;
+                                                    ?>
+                                                    <div class="card-body">
+                                                        <div class="d-flex flex-start align-items-center">
+                                                            <img class="rounded-circle shadow-1-strong me-3"
+                                                                src="<?= $anh ?>" alt="avatar" width="60" height="60" />
+                                                            <div>
+                                                                <h6 class="fw-bold text-primary mb-1">
+                                                                    <?= $name_tk ?>
+                                                                </h6>
+                                                                <p class="text-muted small mb-0">
+                                                                    Shared publicly /
+                                                                    <?= $ngaybinhluan ?>
+                                                                </p>
+                                                                <div class="ratting">
+                                                                    <?php for ($i = 1; $i <= 5; $i++) {
+                                                                        if ($i <= $danh_gia) {
+                                                                            echo '<i class="fa fa-star"></i>';
+                                                                        } else {
+                                                                            echo '<i class="fa fa-star-o"></i>';
+                                                                        }
+                                                                    } ?>
 
-                                                    <p class="mt-3 mb-4 pb-2">
-                                                        <?=$noi_dung?>
-                                                    </p>
 
-                                                    <div class="small d-flex justify-content-start">
-
-                                                        <a href="#!"
-                                                            class="d-flex align-items-center me-3 btn btn-dark">
-                                                            <!-- <i class="far fa-comment-dots me-2"></i> -->
-                                                            Reply
-                                                        </a>
-
-                                                    </div>
-                                                </div>
-                                                <?php }?>
-                                                <div class="card-footer py-3 border-0"
-                                                    style="background-color: #f8f9fa;">
-                                                    <div class="d-flex flex-start w-100">
-                                                        <img class="rounded-circle shadow-1-strong me-3"
-                                                            src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(19).webp"
-                                                            alt="avatar" width="40" height="40" />
-                                                        <div class="d-flex flex-column w-100">
-                                                            <div class="form-outline w-100">
-                                                                <label class="form-label" for="danhgia">Đánh giá</label>
-                                                                <input type="hidden" name="danhgia" id="danhgia">
-                                                                <div class="">
-                                                                    <i class="fa fa-star-o ratting-send" data='1'></i>
-                                                                    <i class="fa fa-star-o ratting-send" data='2'></i>
-                                                                    <i class="fa fa-star-o ratting-send" data='3'></i>
-                                                                    <i class="fa fa-star-o ratting-send" data='4'></i>
-                                                                    <i class="fa fa-star-o ratting-send" data='5'></i>
                                                                 </div>
                                                             </div>
-                                                            <script>
-                                                                const stars = document.querySelectorAll('.ratting-send');
-                                                                const getdatadanhgia =document.querySelector('#danhgia');
-                                                                for (const star of stars) {
-                                                                    star.onclick = function () {
-                                                                        const clickedData = parseInt(star.getAttribute('data'));
-                                                                        getdatadanhgia.value = clickedData;
-                                                                        // Loop through all stars
-                                                                        for (let a = 0; a < stars.length; a++) {
-                                                                            const currentStar = stars[a];
-                                                                            const currentData = parseInt(currentStar.getAttribute('data'));
-
-                                                                            // Toggle classes based on the comparison with clickedData
-                                                                            if (currentData <= clickedData) {
-                                                                                currentStar.classList.remove('fa-star-o');
-                                                                                currentStar.classList.add('fa-star');
-                                                                            } else {
-                                                                                currentStar.classList.remove('fa-star');
-                                                                                currentStar.classList.add('fa-star-o');
-                                                                            }
-                                                                        }
-                                                                    };
-                                                                }
-                                                            </script>
-                                                            <div class="form-outline w-100">
-                                                                <label class="form-label"
-                                                                    for="textAreaExample">Message</label>
-                                                                <textarea class="form-control" id="textAreaExample"
-                                                                    rows="4" style="background: #fff;"></textarea>
-                                                            </div>
                                                         </div>
 
+                                                        <p class="mt-3 mb-4 pb-2">
+                                                            <?= $noi_dung ?>
+                                                        </p>
+
+                                                        <div class="small d-flex justify-content-start">
+
+                                                            <a href="#!"
+                                                                class="d-flex align-items-center me-3 btn btn-dark">
+                                                                <!-- <i class="far fa-comment-dots me-2"></i> -->
+                                                                Reply
+                                                            </a>
+
+                                                        </div>
                                                     </div>
-                                                    <div class="float-end mt-2 pt-1">
-                                                        <button type="button" class="btn btn-primary btn-sm">Post
-                                                            comment</button>
-                                                        <button type="button"
-                                                            class="btn btn-outline-primary btn-sm">Cancel</button>
+                                                <?php } ?>
+                                                <?php if (isset($_SESSION['user'])) { ?>
+                                                    <div class="card-footer py-3 border-0"
+                                                        style="background-color: #f8f9fa;">
+                                                        <form action="?act=binhluan" method="post">
+                                                            <div class="d-flex flex-start w-100">
+                                                                <img class="rounded-circle shadow-1-strong me-3"
+                                                                    src="public/uploads/<?= $_SESSION['user']['image_tk'] ?>"
+                                                                    alt="avatar" width="40" height="40" />
+                                                                <div class="d-flex flex-column w-100">
+                                                                    <div class="form-outline w-100">
+                                                                        <label class="form-label" for="danhgia">Đánh
+                                                                            giá</label>
+                                                                        <input type="hidden" name="danhgia" id="danhgia">
+                                                                        <div class="">
+                                                                            <i class="fa fa-star-o ratting-send"
+                                                                                data='1'></i>
+                                                                            <i class="fa fa-star-o ratting-send"
+                                                                                data='2'></i>
+                                                                            <i class="fa fa-star-o ratting-send"
+                                                                                data='3'></i>
+                                                                            <i class="fa fa-star-o ratting-send"
+                                                                                data='4'></i>
+                                                                            <i class="fa fa-star-o ratting-send"
+                                                                                data='5'></i>
+                                                                        </div>
+                                                                    </div>
+                                                                    <script>
+                                                                        const stars = document.querySelectorAll('.ratting-send');
+                                                                        const getdatadanhgia = document.querySelector('#danhgia');
+                                                                        for (const star of stars) {
+                                                                            star.onclick = function () {
+                                                                                const clickedData = parseInt(star.getAttribute('data'));
+                                                                                getdatadanhgia.value = clickedData;
+                                                                                // Loop through all stars
+                                                                                for (let a = 0; a < stars.length; a++) {
+                                                                                    const currentStar = stars[a];
+                                                                                    const currentData = parseInt(currentStar.getAttribute('data'));
+
+                                                                                    // Toggle classes based on the comparison with clickedData
+                                                                                    if (currentData <= clickedData) {
+                                                                                        currentStar.classList.remove('fa-star-o');
+                                                                                        currentStar.classList.add('fa-star');
+                                                                                    } else {
+                                                                                        currentStar.classList.remove('fa-star');
+                                                                                        currentStar.classList.add('fa-star-o');
+                                                                                    }
+                                                                                }
+                                                                            };
+                                                                        }
+                                                                    </script>
+
+                                                                </div>
+
+                                                            </div>
+                                                            <div class="float-end mt-2 pt-1 w-100">
+
+                                                                <div class="form-outline w-100">
+                                                                    <input type="hidden" name="id_sp"
+                                                                        value="<?= $sp['id_sp'] ?>">
+                                                                    <input type="hidden" name="id_tk"
+                                                                        value="<?= $_SESSION['user']['id_tk'] ?>">
+                                                                    <label class="form-label"
+                                                                        for="textAreaExample">Message</label>
+                                                                    <textarea class="form-control" id="textAreaExample"
+                                                                        name="noidung" rows="4"
+                                                                        style="background: #fff;"></textarea>
+                                                                </div>
+                                                                <div class="mt-3"><button type="submit"
+                                                                        class="btn btn-primary btn-sm">Post
+                                                                        comment</button>
+                                                                    <button type="button"
+                                                                        class="btn btn-outline-primary btn-sm">Cancel</button>
+                                                                </div>
+
+                                                            </div>
+                                                        </form>
                                                     </div>
-                                                </div>
+                                                <?php } else { ?>
+                                                    <div class="alert alert-warning" role="alert">
+                                                        Bạn cần đăng nhập trước khi bình luận
+                                                    </div>
+                                                <?php } ?>
                                             </div>
                                         </div>
                                     </div>
@@ -353,92 +397,92 @@
                 </div>
 
                 <div class="related-product-slider related-product-slider-2 slick-space p-0">
-                    <?php foreach($list_splq as $sp){
-                         $path_hlq = $img_path . $sp['hinh_sp'];    
-                    ?>                                            
-                    <div class="slick-slide">
+                    <?php foreach ($list_splq as $sp) {
+                        $path_hlq = $img_path . $sp['hinh_sp'];
+                        ?>
+                        <div class="slick-slide">
 
-                    <div class="product-item">
-                        <div class="product-inner">
+                            <div class="product-item">
+                                <div class="product-inner">
 
-                            <div class="image">
-                                <img src="<?= $path_hlq ?>" alt="Image" style="width: 270px; height: 320px;">
+                                    <div class="image">
+                                        <img src="<?= $path_hlq ?>" alt="Image" style="width: 270px; height: 320px;">
 
-                                <div class="image-overlay">
-                                    <div class="action-buttons">
-                                        <button>add to cart</button>
-                                        <button>add to wishlist</button>
-                                    </div>
-                                </div>
+                                        <div class="image-overlay">
+                                            <div class="action-buttons">
+                                                <button>add to cart</button>
+                                                <button>add to wishlist</button>
+                                            </div>
+                                        </div>
 
-                            </div>
-
-                            <div class="content">
-
-                                <div class="content-left">
-
-                                    <h4 class="title"><a href="?act=spct&id_sp=<?= $sp['id_sp'] ?>">
-                                            <?= $sp['ten_sp'] ?>
-                                        </a></h4>
-
-                                    <div class="ratting">
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star-half-o"></i>
-                                        <i class="fa fa-star-o"></i>
                                     </div>
 
-                                    <h5 class="size">Size:
-                                        <?php
-                                        $check = [];
-                                        $spbt = load_one_spbt($sp['id_sp']);
-                                        
-                                        foreach ($spbt as $bt) {
-                                            extract($bt);
-                                            $size = load_one_bt($id_size);
-                                        
-                                            if (!in_array($size['id'], $check)) {
-                                                echo '<span>' . $size['name'] . '</span>';
-                                                $check[] = $size['id'];
-                                            }
-                                        
-                                        }
-                                        ?>
-                                    </h5>
-                                    <h5 class="color">Color:
-                                        <?php
-                                        $check = [];
-                                        $spbt = load_one_spbt($sp['id_sp']);
-                                        
-                                        foreach ($spbt as $bt) {
-                                            extract($bt);
-                                            $mau = load_one_bt($id_color);
-                                        
-                                            if (!in_array($mau['id'], $check)) {
-                                                echo '<span style="background-color: ' . $mau['ma_mau'] . '"></span>';
-                                                $check[] = $mau['id'];
-                                            }
-                                        
-                                        }
-                                         ?>
-                                    </h5>
+                                    <div class="content">
+
+                                        <div class="content-left">
+
+                                            <h4 class="title"><a href="?act=spct&id_sp=<?= $sp['id_sp'] ?>">
+                                                    <?= $sp['ten_sp'] ?>
+                                                </a></h4>
+
+                                            <div class="ratting">
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star-half-o"></i>
+                                                <i class="fa fa-star-o"></i>
+                                            </div>
+
+                                            <h5 class="size">Size:
+                                                <?php
+                                                $check = [];
+                                                $spbt = load_one_spbt($sp['id_sp']);
+
+                                                foreach ($spbt as $bt) {
+                                                    extract($bt);
+                                                    $size = load_one_bt($id_size);
+
+                                                    if (!in_array($size['id'], $check)) {
+                                                        echo '<span>' . $size['name'] . '</span>';
+                                                        $check[] = $size['id'];
+                                                    }
+
+                                                }
+                                                ?>
+                                            </h5>
+                                            <h5 class="color">Color:
+                                                <?php
+                                                $check = [];
+                                                $spbt = load_one_spbt($sp['id_sp']);
+
+                                                foreach ($spbt as $bt) {
+                                                    extract($bt);
+                                                    $mau = load_one_bt($id_color);
+
+                                                    if (!in_array($mau['id'], $check)) {
+                                                        echo '<span style="background-color: ' . $mau['ma_mau'] . '"></span>';
+                                                        $check[] = $mau['id'];
+                                                    }
+
+                                                }
+                                                ?>
+                                            </h5>
+
+                                        </div>
+
+                                        <div class="content-right">
+                                            <span class="price">$
+                                                <?= $sp['gia'] ?>
+                                            </span>
+                                        </div>
+
+                                    </div>
 
                                 </div>
-
-                                <div class="content-right">
-                                    <span class="price">$
-                                        <?= $sp['gia'] ?>
-                                    </span>
-                                </div>
-
                             </div>
 
                         </div>
-                    </div>
-
-                    </div>
-                    <?php }?>
+                    <?php } ?>
                     <!-- <div class="slick-slide">
 
                         <div class="product-item">

@@ -40,4 +40,9 @@
         $sql ="DELETE FROM `thong_tin_sp` WHERE id=".$id;
         pdo_execute($sql);
     }
+
+    function check_color($id_sp, $id_color){
+        $sql = "SELECT * FROM thong_tin_sp WHERE id_sp =$id_sp AND id_color = $id_color";
+        return pdo_query($sql);
+    }
 ?>

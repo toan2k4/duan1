@@ -33,7 +33,7 @@
             <div class="modal-body">Chọn "Đăng xuất" bên dưới nếu bạn sẵn sàng kết thúc phiên hiện tại của mình.</div>
             <div class="modal-footer">
                 <button class="btn btn-secondary" type="button" data-dismiss="modal">Hủy</button>
-                <a class="btn btn-primary" href="login.html">Đăng Xuất</a>
+                <a class="btn btn-primary" href="?act=logout">Đăng Xuất</a>
             </div>
         </div>
     </div>

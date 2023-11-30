@@ -476,6 +476,7 @@ $('.pro-qty').prepend('<span class="dec qtybtn"><i class="ti-minus"></i></span>'
 $('.pro-qty').append('<span class="inc qtybtn"><i class="ti-plus"></i></span>');
 $('.qtybtn').on('click', function() {
 	var $button = $(this);
+    var $input = $button.parent().find('input');
 	var oldValue = $button.parent().find('input').val();
 	if ($button.hasClass('inc')) {
 	  var newVal = parseFloat(oldValue) + 1;
@@ -487,8 +488,9 @@ $('.qtybtn').on('click', function() {
 		newVal = 0;
 	  }
 	  }
-	$button.parent().find('input').val(newVal);
-});  
+      $input.val(newVal);
+      $('#quantity').val(newVal);
+}); 
     
 /*----- 
 	Shipping Form Toggle
