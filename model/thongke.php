@@ -29,4 +29,12 @@ function load_thongke_binhluan(){
             ORDER BY sp.id";
     return pdo_query($sql);
 }
+
+function thongke_danhgia_sp($id_sp){
+    $sql = "SELECT sanpham.id_sp, binh_luan.id_tk,AVG( binh_luan.danh_gia) 'tb_star'  FROM `sanpham` JOIN binh_luan ON sanpham.id_sp = binh_luan.id_sp
+    WHERE sanpham.id_sp = $id_sp
+    GROUP BY sanpham.id_sp;";
+    $danh_gia = pdo_query_one($sql);
+    return $danh_gia['tb_star'];
+}
 ?>

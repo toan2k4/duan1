@@ -55,6 +55,11 @@ function update_sp($id, $ten_sp, $hinh_sp, $giam_gia, $gia, $mo_ta, $ngay_nhap, 
     $sql = "UPDATE sanpham SET ten_sp='$ten_sp',hinh_sp='$hinh_sp',giam_gia='$giam_gia',gia='$gia',mo_ta='$mo_ta',ngay_nhap='$ngay_nhap',gioi_tinh='$gioi_tinh',id_dm='$id_dm',trang_thai='$trang_thai' WHERE id_sp=".$id;
     pdo_execute($sql);
 }
+function update_danhgia_sp($id_sp, $danhgia)
+{
+    $sql = "UPDATE sanpham SET danh_gia = '$danhgia' WHERE id_sp=".$id_sp;
+    pdo_execute($sql);
+}
 
 function xoasp($id)
 {

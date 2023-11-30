@@ -53,7 +53,7 @@
 								<h3>Dashboard</h3>
 
 								<div class="welcome">
-									<p>Hello, <strong>Alex Tuntuni</strong> (If Not <strong>Tuntuni !</strong><a href="login-register.html" class="logout"> Logout</a>)</p>
+									<p>Hello, <strong><?= $_SESSION['user']['name_tk']?></strong> (If Not <strong><?= $_SESSION['user']['name_tk']?> !</strong><a href="?act=login&nd=logout" class="logout"> Logout</a>)</p>
 								</div>
 
 								<p class="mb-0">From your account dashboard. you can easily check &amp; view your
@@ -114,7 +114,7 @@
 						<!-- Single Tab Content End -->
 
 						<!-- Single Tab Content Start -->
-						<div class="tab-pane fade" id="download" role="tabpanel">
+						<!-- <div class="tab-pane fade" id="download" role="tabpanel">
 							<div class="myaccount-content">
 								<h3>Downloads</h3>
 
@@ -146,17 +146,17 @@
 									</table>
 								</div>
 							</div>
-						</div>
+						</div> -->
 						<!-- Single Tab Content End -->
 
 						<!-- Single Tab Content Start -->
-						<div class="tab-pane fade" id="payment-method" role="tabpanel">
+						<!-- <div class="tab-pane fade" id="payment-method" role="tabpanel">
 							<div class="myaccount-content">
 								<h3>Payment Method</h3>
 
 								<p class="saved-message">You Can't Saved Your Payment Method yet.</p>
 							</div>
-						</div>
+						</div> -->
 						<!-- Single Tab Content End -->
 
 						<!-- Single Tab Content Start -->
@@ -165,13 +165,16 @@
 								<h3>Billing Address</h3>
 
 								<address>
-									<p><strong>Alex Tuntuni</strong></p>
-									<p>1355 Market St, Suite 900 <br>
-										San Francisco, CA 94103</p>
-									<p>Mobile: (123) 456-7890</p>
+									<?php if(!empty($_SESSION['user']['dia_chi'])){?>
+									<p><strong><?= $_SESSION['user']['name_tk']?></strong></p>
+									<p><?= $_SESSION['user']['dia_chi']?></p>
+									<p>Mobile: <?= $_SESSION['user']['phone']?></p>
+									<?php }else{
+										echo '<div class="alert alert-dark">bạn chưa có địa chỉ nào</div>';
+									}?>
 								</address>
 
-								<a href="#" class="btn btn-dark btn-round d-inline-block"><i class="fa fa-edit"></i>Edit Address</a>
+								<!-- <a href="#" class="btn btn-dark btn-round d-inline-block"><i class="fa fa-edit"></i>Edit Address</a> -->
 							</div>
 						</div>
 						<!-- Single Tab Content End -->
@@ -182,42 +185,57 @@
 								<h3>Account Details</h3>
 
 								<div class="account-details-form">
-									<form action="#">
+									<form action="?act=account" method="post" enctype="multipart/form-data">
 										<div class="row">
 											<div class="col-lg-6 col-12 mb-30">
-												<input id="first-name" placeholder="First Name" type="text">
+												<input type="hidden" name="id_tk" value="<?= $_SESSION['user']['id_tk']?>">
+												<input id="first-name" placeholder="Your Name" type="text" value="<?= $_SESSION['user']['full_name']?>" name="full_name">
 											</div>
 
 											<div class="col-lg-6 col-12 mb-30">
-												<input id="last-name" placeholder="Last Name" type="text">
+												<input id="last-name" placeholder="User Name" type="text" value="<?= $_SESSION['user']['name_tk']?>" name="name_tk">
 											</div>
 
 											<div class="col-12 mb-30">
-												<input id="display-name" placeholder="Display Name" type="text">
+												<input id="display-name" placeholder="Email" type="email" value="<?= $_SESSION['user']['email']?>" name="email">
 											</div>
 
 											<div class="col-12 mb-30">
-												<input id="email" placeholder="Email Address" type="email">
+												<label for="">chọn ảnh</label>
+												<input type="hidden" name="image_tk" value="<?= $_SESSION['user']['image_tk']?>">
+												<input id="email"  type="file"  name="image_tk">
+												<img src="./public/uploads/<?= $_SESSION['user']['image_tk']?>" alt="" style="width: 100px;">
 											</div>
 
+											<div class="col-12 mb-30">
+												<input id="email" placeholder="Address" type="text" value="<?= $_SESSION['user']['dia_chi']?>" name="dia_chi">
+											</div>
+											
+											<div class="col-12 mb-30">
+												<input id="email" placeholder="Phone" type="text" value="<?= $_SESSION['user']['phone']?>" name="phone">
+											</div>
 											<div class="col-12 mb-30"><h4>Password change</h4></div>
 
 											<div class="col-12 mb-30">
-												<input id="current-pwd" placeholder="Current Password" type="password">
+												<input id="current-pwd" placeholder="Current Password" type="password" name="passold">
 											</div>
 
 											<div class="col-lg-6 col-12 mb-30">
-												<input id="new-pwd" placeholder="New Password" type="password">
+												<input id="new-pwd" placeholder="New Password" type="password" name="passnew" >
 											</div>
 
 											<div class="col-lg-6 col-12 mb-30">
-												<input id="confirm-pwd" placeholder="Confirm Password" type="password">
+												<input id="confirm-pwd" placeholder="Confirm Password" type="password" name="repass">
 											</div>
 
 											<div class="col-12">
 												<button class="btn btn-dark btn-round btn-lg">Save Changes</button>
 											</div>
-
+											<?php if(isset($errors)){
+												foreach($errors as $error){
+													echo '<div class="alert alert-danger mt-3">'.$error.'</div>';
+												}
+											}?>
 										</div>
 									</form>
 								</div>

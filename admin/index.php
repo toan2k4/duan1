@@ -1,4 +1,6 @@
 <?php
+session_start();
+ob_start();
 include("../model/pdo.php");
 include("../model/danhmuc.php");
 include("../model/sanpham.php");
@@ -84,7 +86,7 @@ if (isset($_GET['act']) && ($_GET['act'] != '')) {
                 }
 
                 if ($_GET['nd'] == 'addsp') {
-                    
+
                     if ($_SERVER['REQUEST_METHOD'] == "POST") {
                         $ten_sp = $_POST["ten_sp"];
                         $giam_gia = $_POST["giam_gia"];
@@ -149,15 +151,15 @@ if (isset($_GET['act']) && ($_GET['act'] != '')) {
                         $gioi_tinh = $_POST["gt"];
                         $id_dm = $_POST["dm"];
                         $hinh_sp = $_POST["hinh_sp"];
-                        
+
                         $file = $_FILES["hinh_sp"];
                         if ($file['size'] > 0) {
-                            unlink("../".$img_path.$hinh_sp);
+                            unlink("../" . $img_path . $hinh_sp);
                             $hinh_sp = $file["name"];
                             move_uploaded_file($file["tmp_name"], "../" . $img_path . $hinh_sp);
-                            
+
                         }
-                        
+
                         update_sp($id_sp, $ten_sp, $hinh_sp, $giam_gia, $gia, $mo_ta, $ngay_nhap, $gioi_tinh, $id_dm);
 
 
@@ -188,7 +190,7 @@ if (isset($_GET['act']) && ($_GET['act'] != '')) {
 
                 if ($_GET['nd'] == 'delbt') {
                     del_bt($_GET['id']);
-                    echo "  <script>window.location.href ='index.php?act=sanpham&nd=editsp&idsp=".$_GET['idsp']."'</script> ";
+                    echo "  <script>window.location.href ='index.php?act=sanpham&nd=editsp&idsp=" . $_GET['idsp'] . "'</script> ";
                 }
 
             }
@@ -253,7 +255,7 @@ if (isset($_GET['act']) && ($_GET['act'] != '')) {
                             $thongbao = 'Không thành công';
                         } else {
                             $isthongbao = 1;
-                            if($id_thuoc_tinh == 2){
+                            if ($id_thuoc_tinh == 2) {
                                 $ma_mau = '';
                             }
                             add_bt($name, $ma_mau, $id_thuoc_tinh);
@@ -264,7 +266,7 @@ if (isset($_GET['act']) && ($_GET['act'] != '')) {
                     include('bienthe/add.php');
                 }
 
-                
+
                 if ($_GET['nd'] == 'edit') {
                     if (isset($_GET['idbt'])) {
                         $bienthe = load_one_bt($_GET['idbt']);
@@ -283,6 +285,11 @@ if (isset($_GET['act']) && ($_GET['act'] != '')) {
                     include('bienthe/list.php');
                 }
             }
+            break;
+        case "logout":
+            dangxuat();
+            header("location: ../index.php");
+            // echo '<script>window.location.href = ../index.php</script>';
             break;
 
     }
