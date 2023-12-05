@@ -109,8 +109,8 @@
                                         $check = [];
                                         $spbt = load_one_spbt($sp['id_sp']);
 
-                                        foreach ($spbt as $sp) {
-                                            extract($sp);
+                                        foreach ($spbt as $bt) {
+                                            extract($bt);
                                             $mau = load_one_bt($id_color);
                                             if (!in_array($mau['id'], $check)) {
                                                 echo '<button class="color" value="' . $mau['id'] . '" style="background-color:' . $mau['ma_mau'] . '"></button>';
@@ -130,8 +130,8 @@
                                         $check = [];
                                         $spbt = load_one_spbt($sp['id_sp']);
 
-                                        foreach ($spbt as $sp) {
-                                            extract($sp);
+                                        foreach ($spbt as $bt) {
+                                            extract($bt);
                                             $size = load_one_bt($id_size);
                                             if (!in_array($size['id'], $check)) {
                                                 echo '<button class="size me-2" value="' . $size['id'] . '">' . $size['name'] . '</button>';
@@ -144,48 +144,27 @@
                                     </div>
                                 </div>
                             </div>
-                            <script>
-                                const sizes = document.querySelectorAll('.size');
 
-
-                                for (const size of sizes) {
-                                    size.onclick = function () {
-
-                                        for (var i = 0; i < sizes.length; i++) {
-                                            sizes[i].classList.remove('selected-size');
-                                        }
-                                        size.classList.add('selected-size');
-                                        document.getElementById('selectedSizeInput').value = size.value;
-                                    }
-                                }
-                                const colors = document.querySelectorAll('.color');
-                                for (const color of colors) {
-                                    color.onclick = function () {
-
-                                        for (var i = 0; i < colors.length; i++) {
-                                            colors[i].style.border = "none";
-                                        }
-                                        color.style.border = "2px solid";
-                                        document.getElementById('selectedColorInput').value = color.value;
-
-                                    }
-                                }
-
-
-
-                            </script>
                             <div class="actions">
-                                <form action="">
+                                <form action="?act=cart" method="post">
+
+                                    <input type="hidden" id="id_sp" value="<?= $sp['id_sp'] ?>">
+                                    <input type="hidden" id="ten_sp" value="<?= $sp['ten_sp'] ?>">
+                                    <input type="hidden" id="price" value="<?= $gia_new ?>">
+                                    <input type="hidden" id="hinh_sp" value="<?= $sp['hinh_sp'] ?>">
                                     <input type="hidden" name="size" id="selectedSizeInput">
+
                                     <input type="hidden" name="color" id="selectedColorInput">
-                                    <input type="hidden" name="quantity" id="quantity">
-                                    <button><i class="ti-shopping-cart"></i><span>ADD TO CART</span></button>
+                                    <input type="hidden" id="quantity" id="quantity" value="1" min="1">
+                                    <a href="?act=cart"><button id="btn_DH"><i class="ti-shopping-cart"></i><span>ADD TO
+                                                CART</span></button></a>
                                 </form>
                                 <button class="box" data-tooltip="Compare"><i class="ti-control-shuffle"></i></button>
                                 <button class="box" data-tooltip="Wishlist"><i class="ti-heart"></i></button>
 
                             </div>
-
+                            
+                           
                             <!-- <div class="tags">
 
                                     <h5>Tags:</h5>
@@ -486,215 +465,7 @@
 
                         </div>
                     <?php } ?>
-                    <!-- <div class="slick-slide">
 
-                        <div class="product-item">
-                            <div class="product-inner">
-
-                                <div class="image">
-                                    <img src="public/assets/images/product/product-2.jpg" alt="">
-
-                                    <div class="image-overlay">
-                                        <div class="action-buttons">
-                                            <button>add to cart</button>
-                                            <button>add to wishlist</button>
-                                        </div>
-                                    </div>
-
-                                </div>
-
-                                <div class="content">
-
-                                    <div class="content-left">
-
-                                        <h4 class="title"><a href="single-product.html">Jumpsuit Outfits</a>
-                                        </h4>
-
-                                        <div class="ratting">
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                        </div>
-
-                                        <h5 class="size">Size:
-                                            <span>S</span><span>M</span><span>L</span><span>XL</span>
-                                        </h5>
-                                        <h5 class="color">Color: <span style="background-color: #ffb2b0"></span><span
-                                                style="background-color: #0271bc"></span><span
-                                                style="background-color: #efc87c"></span><span
-                                                style="background-color: #00c183"></span></h5>
-
-                                    </div>
-
-                                    <div class="content-right">
-                                        <span class="price">$09</span>
-                                    </div>
-
-                                </div>
-
-                            </div>
-                        </div>
-
-                    </div>
-
-                    <div class="slick-slide">
-
-                        <div class="product-item">
-                            <div class="product-inner">
-
-                                <div class="image">
-                                    <img src="public/assets/images/product/product-3.jpg" alt="">
-
-                                    <div class="image-overlay">
-                                        <div class="action-buttons">
-                                            <button>add to cart</button>
-                                            <button>add to wishlist</button>
-                                        </div>
-                                    </div>
-
-                                </div>
-
-                                <div class="content">
-
-                                    <div class="content-left">
-
-                                        <h4 class="title"><a href="single-product.html">Smart Shirt</a></h4>
-
-                                        <div class="ratting">
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star-o"></i>
-                                        </div>
-
-                                        <h5 class="size">Size:
-                                            <span>S</span><span>M</span><span>L</span><span>XL</span>
-                                        </h5>
-                                        <h5 class="color">Color: <span style="background-color: #ffb2b0"></span><span
-                                                style="background-color: #0271bc"></span><span
-                                                style="background-color: #efc87c"></span><span
-                                                style="background-color: #00c183"></span></h5>
-
-                                    </div>
-
-                                    <div class="content-right">
-                                        <span class="price">$18</span>
-                                    </div>
-
-                                </div>
-
-                            </div>
-                        </div>
-
-                    </div>
-
-                    <div class="slick-slide">
-
-                        <div class="product-item">
-                            <div class="product-inner">
-
-                                <div class="image">
-                                    <img src="public/assets/images/product/product-4.jpg" alt="">
-
-                                    <div class="image-overlay">
-                                        <div class="action-buttons">
-                                            <button>add to cart</button>
-                                            <button>add to wishlist</button>
-                                        </div>
-                                    </div>
-
-                                </div>
-
-                                <div class="content">
-
-                                    <div class="content-left">
-
-                                        <h4 class="title"><a href="single-product.html">Kids Shoe</a></h4>
-
-                                        <div class="ratting">
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star-half-o"></i>
-                                            <i class="fa fa-star-o"></i>
-                                        </div>
-
-                                        <h5 class="size">Size:
-                                            <span>S</span><span>M</span><span>L</span><span>XL</span>
-                                        </h5>
-                                        <h5 class="color">Color: <span style="background-color: #ffb2b0"></span><span
-                                                style="background-color: #0271bc"></span><span
-                                                style="background-color: #efc87c"></span><span
-                                                style="background-color: #00c183"></span></h5>
-
-                                    </div>
-
-                                    <div class="content-right">
-                                        <span class="price">$15</span>
-                                    </div>
-
-                                </div>
-
-                            </div>
-                        </div>
-
-                    </div>
-
-                    <div class="slick-slide">
-
-                        <div class="product-item">
-                            <div class="product-inner">
-
-                                <div class="image">
-                                    <img src="public/assets/images/product/product-5.jpg" alt="">
-
-                                    <div class="image-overlay">
-                                        <div class="action-buttons">
-                                            <button>add to cart</button>
-                                            <button>add to wishlist</button>
-                                        </div>
-                                    </div>
-
-                                </div>
-
-                                <div class="content">
-
-                                    <div class="content-left">
-
-                                        <h4 class="title"><a href="single-product.html"> Bowknot Bodysuit</a>
-                                        </h4>
-
-                                        <div class="ratting">
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star-half-o"></i>
-                                        </div>
-
-                                        <h5 class="size">Size:
-                                            <span>S</span><span>M</span><span>L</span><span>XL</span>
-                                        </h5>
-                                        <h5 class="color">Color: <span style="background-color: #ffb2b0"></span><span
-                                                style="background-color: #0271bc"></span><span
-                                                style="background-color: #efc87c"></span><span
-                                                style="background-color: #00c183"></span></h5>
-
-                                    </div>
-
-                                    <div class="content-right">
-                                        <span class="price">$12</span>
-                                    </div>
-
-                                </div>
-
-                            </div>
-                        </div>
-
-                    </div> -->
 
                 </div>
 

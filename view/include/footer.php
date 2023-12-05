@@ -122,7 +122,78 @@
 <script src="public/assets/js/plugins.js"></script>
 <!-- Main JS -->
 <script src="public/assets/js/test.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 
+<script>
+    let totalProduct = document.getElementById('totalProduct');
+
+    function addToCart(id_sp, ten_sp, hinh_sp, gia_sp, mau, size, quantity) {
+        // console.log(id_sp, ten_sp, hinh_sp, gia_sp);
+        $.ajax({
+            type: "POST",
+            url: "./view/addToCart.php?act=addCart",
+            data: {
+                id: id_sp,
+                name: ten_sp,
+                image: hinh_sp,
+                price: gia_sp,
+                color: mau,
+                size: size,
+                quantity: quantity
+            },
+            success: function (response) {
+                totalProduct.innerText = response;
+                alert('bạn đã thêm sản phẩm thành công');
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+    }
+    var btn_DH = document.querySelector('#btn_DH');
+
+    btn_DH.onclick = function () {
+        var id_sp = document.getElementById('id_sp').value;
+        var ten_sp = document.getElementById('ten_sp').value;
+        var price = document.getElementById('price').value;
+        var hinh_sp = document.getElementById('hinh_sp').value;
+        var size = document.getElementById('selectedSizeInput').value;
+        var color = document.getElementById('selectedColorInput').value;
+        var quantity = document.getElementById('quantity').value;
+        addToCart(id_sp, ten_sp, hinh_sp, price, color, size, quantity);
+
+    }
+</script>
+<script>
+    const sizes = document.querySelectorAll('.size');
+
+
+    for (const size of sizes) {
+        size.onclick = function () {
+
+            for (var i = 0; i < sizes.length; i++) {
+                sizes[i].classList.remove('selected-size');
+            }
+            size.classList.add('selected-size');
+            document.getElementById('selectedSizeInput').value = size.value;
+        }
+    }
+    const colors = document.querySelectorAll('.color');
+    for (const color of colors) {
+        color.onclick = function () {
+
+            for (var i = 0; i < colors.length; i++) {
+                colors[i].style.border = "none";
+            }
+            color.style.border = "2px solid";
+            document.getElementById('selectedColorInput').value = color.value;
+
+        }
+    }
+
+
+
+</script>
 </body>
 
 

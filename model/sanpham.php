@@ -61,6 +61,13 @@ function update_danhgia_sp($id_sp, $danhgia)
     pdo_execute($sql);
 }
 
+function update_view($id, $so_luot_xem){
+    $sql = "UPDATE `sanpham` SET `so_luot_xem`='$so_luot_xem' WHERE id_sp = $id";
+    // var_dump($sql);
+    // die();
+    pdo_execute($sql);
+}
+
 function xoasp($id)
 {
     $sql = " DELETE FROM sanpham  WHERE id_sp = $id";

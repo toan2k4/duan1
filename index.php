@@ -5,10 +5,16 @@ include('model/pdo.php');
 include('model/sanpham.php');
 include('model/bienthe.php');
 include('model/danhmuc.php');
+include('model/cart.php');
+include('model/bill.php');
 include('model/taikhoan.php');
 include('model/binhluan.php');
 include('model/thongke.php');
 include('global.php');
+
+
+// var_dump($_SESSION['cart']);
+// die();
 
 $ds_dm = loadAll_dm();
 include("view/include/header.php");
@@ -21,13 +27,16 @@ $ds_sp_sale = loadAll_sp_sale();
 if (isset($_SESSION['user']) && $_SESSION['user']['roles'] == '1') {
     header("location: admin/index.php");
 } elseif (isset($_SESSION['user']) && $_SESSION['user']['roles'] == '0') {
-
+    if (!isset($_SESSION['cart'])) {
+        $_SESSION['cart'] = [];
+    }
     if (isset($_GET['act']) && ($_GET['act'] != '')) {
         $act = $_GET['act'];
         switch ($act) {
             case 'spct':
                 if (isset($_GET['id_sp'])) {
                     $sp = load_one_sp($_GET['id_sp']);
+                    update_view($_GET['id_sp'], $sp['so_luot_xem'] + 1);
                     $hinh = $img_path . $sp['hinh_sp'];
                     $list_hp = loadAll_hp($_GET['id_sp']);
                     $list_splq = loadAll_splq($_GET['id_sp'], $sp['id_dm']);
@@ -49,10 +58,67 @@ if (isset($_SESSION['user']) && $_SESSION['user']['roles'] == '1') {
                 header('location: index.php?act=spct&id_sp=' . $id_sp);
                 break;
             case 'cart':
+                if (!empty($_SESSION['cart'])) {
+                    $list_cart = $_SESSION['cart'];
+                    // $productId = array_column($cart, 'id');
+                    // $idList = implode(',',$productId);
+
+                    // $list_cart = load_sp_id($idList);
+                    // var_dump( $list_cart );
+                    // die();
+                }
+
                 include('view/cart.php');
                 break;
             case 'checkout':
                 include('view/checkout.php');
+                break;
+            case 'bill':
+                if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+                    if (empty($_POST["full_name"])) {
+                        $nameErr = "Name is required";
+                    } else {
+                        $full_name = $_POST['full_name'];
+                    }
+                   
+                   
+                    $email = $_POST['email'];
+
+                    if (empty($_POST["phone"])) {
+                        $phoneErr = "Phone is required";
+                    } else {
+                        $phone = $_POST['phone'];
+                    }
+
+                    $thanh_tien = $_POST['thanh_tien'];
+
+                    if (empty($_POST["dia_chi"])) {
+                        $addressErr = "Address is required";
+                    } else {
+                        $dia_chi = $_POST['dia_chi'];
+                    }
+
+
+                    if (empty($_POST["payment-method"])) {
+                        $payErr = "payment method is required";
+                    } else {
+                        $thanh_toan = $_POST['payment-method'];
+                    }
+                    
+                    if (isset($full_name) && isset($phone) && isset($dia_chi) && isset($thanh_toan)) {
+                        $id_detailbill = insert_detail_bill($full_name, $phone, $dia_chi, $email, $thanh_tien, $thanh_toan);
+                        foreach ($_SESSION['cart'] as $item) {
+                            extract($item);
+                            insert_bill($id_detailbill, $id, $quantity, $price, $color, $size);
+                        }
+                        unset($_SESSION['cart']);
+                        header('location: index.php');
+                    }else{
+                       
+                        include "view/checkout.php";
+                    }
+
+                }
                 break;
             case 'login':
                 if (isset($_GET['nd'])) {
@@ -79,44 +145,7 @@ if (isset($_SESSION['user']) && $_SESSION['user']['roles'] == '1') {
                 include('view/login&register.php');
                 break;
             case 'account':
-                if ($_SERVER['REQUEST_METHOD'] == "POST") {
-                    $errors = [];
-                    $full_name = $_POST['full_name'];
-                    $name_tk = $_POST['name_tk'];
-                    $email = $_POST['email'];
-                    $id_tk = $_POST['id_tk'];
-                    $dia_chi = $_POST['dia_chi'];
-                    $phone = $_POST['phone'];
-                    $passold = $_POST['passold'];
-                    $passnew = $_POST['passnew'];
-                    $repass = $_POST['repass'];
-                    $image_tk = $_POST['image_tk'];
-                    $file = $_FILES['image_tk'];
 
-                    if ($file['size'] > 0) {
-                        unlink($img_path . $image_tk);
-                        $image_tk = $file['name'];
-                        move_uploaded_file($file['tmp_name'], $img_path . $image_tk);
-                    }
-                    if (!empty($passold) || !empty($passnew) || !empty($repass)) {
-                        if ($passold == $_SESSION['user']['pass']) {
-                            if ($repass == $passnew) {
-                                update_tk($id_tk, $name_tk, $passnew, $image_tk, $full_name, $email, $phone, $dia_chi);
-                                $_SESSION['user'] = load_one_tk($id_tk);
-                                header('location: index.php?act=account');
-                            } else {
-                                $errors[] = 'password nhập lại không đúng với password mới';
-                            }
-                        } else {
-                            $errors[] = 'password cũ không đúng';
-                        }
-                    }else{
-                        update_tk($id_tk, $name_tk, $passnew = '', $image_tk, $full_name, $email, $phone, $dia_chi);
-                        $_SESSION['user'] = load_one_tk($id_tk);
-                        header('location: index.php?act=account');
-                    }
-
-                }
                 include('view/myaccount.php');
                 break;
             case 'shop':
@@ -183,13 +212,16 @@ if (isset($_SESSION['user']) && $_SESSION['user']['roles'] == '1') {
 
     include("view/include/footer.php");
 } else {
-
+    if (!isset($_SESSION['cart'])) {
+        $_SESSION['cart'] = [];
+    }
     if (isset($_GET['act']) && ($_GET['act'] != '')) {
         $act = $_GET['act'];
         switch ($act) {
             case 'spct':
                 if (isset($_GET['id_sp'])) {
                     $sp = load_one_sp($_GET['id_sp']);
+                    update_view($_GET['id_sp'], $sp['so_luot_xem'] + 1);
                     $hinh = $img_path . $sp['hinh_sp'];
                     $list_hp = loadAll_hp($_GET['id_sp']);
                     $list_splq = loadAll_splq($_GET['id_sp'], $sp['id_dm']);
@@ -202,10 +234,69 @@ if (isset($_SESSION['user']) && $_SESSION['user']['roles'] == '1') {
 
                 break;
             case 'cart':
+                if (!empty($_SESSION['cart'])) {
+                    $list_cart = $_SESSION['cart'];
+                    // $productId = array_column($cart, 'id');
+                    // $idList = implode(',',$productId);
+
+                    // $list_cart = load_sp_id($idList);
+                    // var_dump( $list_cart );
+                    // die();
+                }
+
+
                 include('view/cart.php');
                 break;
             case 'checkout':
                 include('view/checkout.php');
+                break;
+            case 'bill':
+                if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+                    if (empty($_POST["full_name"])) {
+                        $nameErr = "Name is required";
+                    } else {
+                        $full_name = $_POST['full_name'];
+                    }
+                   
+                   
+                    $email = $_POST['email'];
+
+                    if (empty($_POST["phone"])) {
+                        $phoneErr = "Phone is required";
+                    } else {
+                        $phone = $_POST['phone'];
+                    }
+
+                    $thanh_tien = $_POST['thanh_tien'];
+
+                    if (empty($_POST["dia_chi"])) {
+                        $addressErr = "Address is required";
+                    } else {
+                        $dia_chi = $_POST['dia_chi'];
+                    }
+
+
+                    if (empty($_POST["payment-method"])) {
+                        $payErr = "payment method is required";
+                    } else {
+                        $thanh_toan = $_POST['payment-method'];
+                    }
+                    
+                    if (isset($full_name) && isset($phone) && isset($dia_chi) && isset($thanh_toan)) {
+                        $id_detailbill = insert_detail_bill($full_name, $phone, $dia_chi, $email, $thanh_tien, $thanh_toan);
+                        foreach ($_SESSION['cart'] as $item) {
+                            extract($item);
+                            insert_bill($id_detailbill, $id, $quantity, $price, $color, $size);
+                        }
+                        unset($_SESSION['cart']);
+                        header('location: index.php');
+                    }else{
+                       
+                        include "view/checkout.php";
+                    }
+
+                }
+                
                 break;
             case 'login':
                 if (isset($_GET['nd'])) {

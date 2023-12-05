@@ -112,7 +112,7 @@
                 <div id="collapseTwo5" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Chức năng:</h6>
-                        <a class="collapse-item" href="?act=danhmuc">Danh Sách</a>
+                        <a class="collapse-item" href="?act=donhang&nd=list">Danh Sách</a>
                         <a class="collapse-item" href="?act=sldanhmuc">Thống Kê</a>
                     </div>
                 </div>
@@ -364,8 +364,8 @@
                         <!-- Nav Item - User Information -->
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small"> Xin Chào: Admin</span>
-                                <img class="img-profile rounded-circle" src="../public/admin/img/undraw_profile.svg">
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small"> Xin Chào: <?= $_SESSION['user']['name_tk']?></span>
+                                <img class="img-profile rounded-circle" src="../public/uploads/<?= $_SESSION['user']['image_tk']?>">
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
