@@ -64,7 +64,7 @@
 
                                         <div class="image-overlay">
                                             <div class="action-buttons">
-                                                <button>add to cart</button>
+                                                <button data-id="<?= $id_sp?>"  onclick="addToCart(<?= $id_sp?>,'<?= $ten_sp?>','<?= $hinh_sp?>',<?= $gia_new?>)">add to cart</button>
                                                 <button>add to wishlist</button>
                                             </div>
                                         </div>

@@ -6,6 +6,7 @@ include("../model/danhmuc.php");
 include("../model/sanpham.php");
 include("../model/thongke.php");
 include("../model/binhluan.php");
+include("../model/bill.php");
 include("../model/taikhoan.php");
 include("../model/bienthe.php");
 include("../global.php");
@@ -283,6 +284,43 @@ if (isset($_GET['act']) && ($_GET['act'] != '')) {
                     $dsmau = loadAll_mau();
                     $dssize = loadAll_size();
                     include('bienthe/list.php');
+                }
+            }
+            break;
+        case 'donhang':
+            if (isset($_GET['nd'])) {
+                if($_GET['nd'] == 'list'){
+                    $list_detailbill = loadAll_detailbill();
+                    include 'donhang/list.php';
+                }
+
+                if($_GET['nd'] == 'chitiet'){
+                    if(isset($_GET['id_ctbill']) && isset($_GET['trang_thai']) ){
+                        $trang_thai = $_GET['trang_thai'];
+                        $ds = loadone_bill($_GET['id_ctbill']);
+                    }
+                    include "donhang/chitietdonhang.php";
+                }
+
+                if($_GET['nd'] == 'update'){
+                    if(isset($_POST['xac']) && ($_POST['xac'])){
+                        $id = $_POST['id'];
+                        update_trangthai($id, 1);
+                    }
+                    if(isset($_POST['giao']) && ($_POST['giao'])){
+                        $id = $_POST['id'];
+                        update_trangthai($id, 2);
+                    }
+                    if(isset($_POST['huy']) && ($_POST['huy'])){
+                        $id = $_POST['id'];
+                        update_trangthai($id, 4);
+                    }
+                    if(isset($_POST['thanhcong']) && ($_POST['thanhcong'])){
+                        $id = $_POST['id'];
+                        update_trangthai($id, 3);
+                    }
+                    $list_detailbill = loadAll_detailbill();
+                    include "donhang/list.php";
                 }
             }
             break;

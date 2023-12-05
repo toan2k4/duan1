@@ -98,12 +98,12 @@
 
         <div class="row mbn-40">
             <?php
-            $i = 0;
+            $j = 0;
             foreach ($ds_popular as $ds) {
                 extract($ds);
-                $gia_new = number_format(($ds['gia'] - ($ds['gia'] * ($ds['giam_gia'] / 100))),1);
+                $gia_new = number_format(($ds['gia'] - ($ds['gia'] * ($ds['giam_gia'] / 100))), 1);
                 $hinh = $img_path . $hinh_sp;
-                if($i == 8){
+                if ($j == 8) {
                     break;
                 }
                 ?>
@@ -117,7 +117,7 @@
 
                                 <div class="image-overlay">
                                     <div class="action-buttons">
-                                        <button>add to cart</button>
+                                        <button data-id="<?= $id_sp?>"  onclick="addToCart(<?= $id_sp?>,'<?= $ten_sp?>','<?= $hinh_sp?>',<?= $gia_new?>,'<?= $mau = ''?>','<?= $size = ''?>',<?= $quantity = 1?>)">add to cart</button>
                                         <button>add to wishlist</button>
                                     </div>
                                 </div>
@@ -133,27 +133,34 @@
                                         </a></h4>
 
                                     <div class="ratting">
-                                        <i class="fa fa-star"></i>
+                                        <?php for ($i = 1; $i <= 5; $i++) {
+                                            if ($i <= $danh_gia) {
+                                                echo '<i class="fa fa-star"></i>';
+                                            } else {
+                                                echo '<i class="fa fa-star-o"></i>';
+                                            }
+                                        } ?>
+                                        <!-- <i class="fa fa-star"></i>
                                         <i class="fa fa-star"></i>
                                         <i class="fa fa-star"></i>
                                         <i class="fa fa-star-half-o"></i>
-                                        <i class="fa fa-star-o"></i>
+                                        <i class="fa fa-star-o"></i> -->
                                     </div>
 
                                     <h5 class="size">Size:
                                         <?php
                                         $check = [];
                                         $spbt = load_one_spbt($id_sp);
-                                        
+
                                         foreach ($spbt as $sp) {
                                             extract($sp);
                                             $size = load_one_bt($id_size);
-                                        
+
                                             if (!in_array($size['id'], $check)) {
                                                 echo '<span>' . $size['name'] . '</span>';
                                                 $check[] = $size['id'];
                                             }
-                                        
+
                                         }
                                         ?>
                                     </h5>
@@ -161,18 +168,18 @@
                                         <?php
                                         $check = [];
                                         $spbt = load_one_spbt($id_sp);
-                                        
+
                                         foreach ($spbt as $sp) {
                                             extract($sp);
                                             $mau = load_one_bt($id_color);
-                                        
+
                                             if (!in_array($mau['id'], $check)) {
                                                 echo '<span style="background-color: ' . $mau['ma_mau'] . '"></span>';
                                                 $check[] = $mau['id'];
                                             }
-                                        
+
                                         }
-                                         ?>
+                                        ?>
                                     </h5>
 
                                 </div>
@@ -180,7 +187,9 @@
                                 <div class="content-right">
                                     <span class="price">$
                                         <?= $gia_new ?>
-                                        <span class="old">$<?=$gia?></span>
+                                        <span class="old">$
+                                            <?= $gia ?>
+                                        </span>
                                     </span>
                                 </div>
 
@@ -190,7 +199,7 @@
                     </div>
 
                 </div>
-            <?php $i++; } ?>
+            <?php $j++; } ?>
             <!-- <div class="col-xl-3 col-lg-4 col-md-6 col-12 mb-40">
 
                 <div class="product-item">
@@ -367,49 +376,56 @@
                 </div>
 
                 <div class="best-deal-slider w-100">
-                <?php
-                $i = 0;
+                    <?php
+                    $i = 0;
                     foreach ($ds_sp_sale as $sp) {
                         extract($sp);
                         $hinh = $img_path . $hinh_sp;
                         $gia_new = $gia - ($gia * ($giam_gia / 100));
-                        if($i == 2){
-                            break;  
+                        if ($i == 2) {
+                            break;
                         }
                         ?>
-                    <div class="slide-item">
-                        <div class="best-deal-product">
+                        <div class="slide-item">
+                            <div class="best-deal-product">
 
-                            <div class="image"><img src="<?= $hinh?>" alt="Image" style="width: 370px; height: 547px;">
-                            </div>
+                                <div class="image"><img src="<?= $hinh ?>" alt="Image" style="width: 370px; height: 547px;">
+                                </div>
 
-                            <div class="content-top">
+                                <div class="content-top">
 
-                                <div class="content-top-left">
-                                    <h4 class="title"><a href="#"><?=$ten_sp?></a></h4>
-                                    <div class="ratting">
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star-half-o"></i>
+                                    <div class="content-top-left">
+                                        <h4 class="title"><a href="#">
+                                                <?= $ten_sp ?>
+                                            </a></h4>
+                                        <div class="ratting">
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star-half-o"></i>
+                                        </div>
                                     </div>
+
+                                    <div class="content-top-right">
+                                        <span class="price">
+                                            <?= $gia_new ?> <span class="old">
+                                                <?= $gia ?>
+                                            </span>
+                                        </span>
+                                    </div>
+
                                 </div>
 
-                                <div class="content-top-right">
-                                    <span class="price"><?= $gia_new?> <span class="old"><?= $gia?></span></span>
+                                <div class="content-bottom">
+                                    <div class="countdown" data-countdown="2023/06/20"></div>
+                                    <a href="?act=spct&id_sp=<?= $id_sp ?>" data-hover="SHOP NOW">SHOP NOW</a>
                                 </div>
 
                             </div>
-
-                            <div class="content-bottom">
-                                <div class="countdown" data-countdown="2023/06/20"></div>
-                                <a href="?act=spct&id_sp=<?=$id_sp?>" data-hover="SHOP NOW">SHOP NOW</a>
-                            </div>
-
                         </div>
-                    </div>
-                    <?php $i++; }?>
+                        <?php $i++;
+                    } ?>
                     <!-- <div class="slide-item">
                         <div class="best-deal-product">
 
@@ -466,8 +482,8 @@
                         <div class="col mb-40">
 
                             <div class="on-sale-product">
-                                <a href="single-product.html" class="image"><img
-                                        src="<?=$hinh?>" alt="Image" style="width: 174px; height: 174px;"></a>
+                                <a href="single-product.html" class="image"><img src="<?= $hinh ?>" alt="Image"
+                                        style="width: 174px; height: 174px;"></a>
                                 <div class="content text-center">
                                     <h4 class="title"><a href="?act=spct&id_sp=<?= $id_sp ?>">
                                             <?= $ten_sp ?>
@@ -565,108 +581,3 @@
     </div>
 </div><!-- Feature Section End -->
 
-<!-- Blog Section Start -->
-<!-- <div class="blog-section section section-padding">
-<div class="container">
-    <div class="row mbn-40">
-
-        <div class="col-xl-6 col-lg-5 col-12 mb-40">
-
-            <div class="row">
-                <div class="section-title text-start col mb-30">
-                    <h1>CLIENTS REVIEW</h1>
-                    <p>Clients says abot us</p>
-                </div>
-            </div>
-
-            <div class="row mbn-40">
-
-                <div class="col-12 mb-40">
-                    <div class="testimonial-item">
-                        <p>Jadusona is one of the most exclusive Baby shop in the wold, where you can find all product for your baby that your want to buy for your baby. I recomanded this shop all of you</p>
-                        <div class="testimonial-author">
-                            <img src="public/assets/images/testimonial/testimonial-1.png" alt="Image">
-                            <div class="content">
-                                <h4>Zacquline Smith</h4>
-                                <p>CEO, Momens Group</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-12 mb-40">
-                    <div class="testimonial-item">
-                        <p>Jadusona is one of the most exclusive Baby shop in the wold, where you can find all product for your baby that your want to buy for your baby. I recomanded this shop all of you</p>
-                        <div class="testimonial-author">
-                            <img src="public/assets/images/testimonial/testimonial-2.png" alt="Image">
-                            <div class="content">
-                                <h4>Nusaha Williams</h4>
-                                <p>CEO, Momens Group</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-
-        </div>
-
-        <div class="col-xl-6 col-lg-7 col-12 mb-40">
-
-            <div class="row">
-                <div class="section-title text-start col mb-30">
-                    <h1>FROM THE BLOG</h1>
-                    <p>Find all latest update here</p>
-                </div>
-            </div>
-
-            <div class="row mbn-40">
-
-                <div class="col-12 mb-40">
-                    <div class="blog-item">
-                        <div class="image-wrap">
-                            <h4 class="date">May <span>25</span></h4>
-                            <a class="image" href="single-blog.html"><img src="public/assets/images/blog/blog-1.jpg" alt="Image"></a>
-                        </div>
-                        <div class="content">
-                            <h4 class="title"><a href="single-blog.html">Lates and new Trens for baby fashion</a></h4>
-                            <div class="desc">
-                                <p>Jadusona is one of the most of a exclusive Baby shop in the</p>
-                            </div>
-                            <ul class="meta">
-                                <li><a href="#"><img src="public/assets/images/blog/blog-author-1.jpg" alt="Blog Author">Muhin</a></li>
-                                <li><a href="#">25 Likes</a></li>
-                                <li><a href="#">05 Views</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-12 mb-40">
-                    <div class="blog-item">
-                        <div class="image-wrap">
-                            <h4 class="date">May <span>20</span></h4>
-                            <a class="image" href="single-blog.html"><img src="public/assets/images/blog/blog-2.jpg" alt="Image"></a>
-                        </div>
-                        <div class="content">
-                            <h4 class="title"><a href="single-blog.html">New Collection New Trend all New Style</a></h4>
-                            <div class="desc">
-                                <p>Jadusona is one of the most of a exclusive Baby shop in the</p>
-                            </div>
-                            <ul class="meta">
-                                <li><a href="#"><img src="public/assets/images/blog/blog-author-2.jpg" alt="Blog Author">Takiya</a></li>
-                                <li><a href="#">25 Likes</a></li>
-                                <li><a href="#">05 Views</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-
-        </div>
-
-    </div>
-</div>
-</div> -->
-<!-- Blog Section End -->

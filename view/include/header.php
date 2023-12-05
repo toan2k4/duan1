@@ -139,7 +139,7 @@
 
                                 <div class="header-mini-cart">
                                     <a href="?act=cart"><img src="public/assets/images/icons/cart.png" alt="Cart">
-                                        <span>02($250)</span></a>
+                                    <span id="totalProduct"><?= isset($_SESSION['cart']) ? count($_SESSION['cart']) : 0 ?></span></a>
                                 </div>
 
                             </div><!-- Header Advance Search End -->
