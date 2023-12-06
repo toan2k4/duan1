@@ -22,7 +22,6 @@
                             <th>Mô tả</th>
                             <th>Số lượt xem</th>
                             <th>Ngày nhập</th>
-                            <th>Giới tính</th>
                             <th>Chức năng</th>
 
                         </tr>
@@ -45,7 +44,6 @@
                                     <td><?= $mo_ta ?></td>
                                     <td><?= $so_luot_xem ?></td>
                                     <td><?= date("d-m-Y", strtotime($ngay_nhap)) ?></td>
-                                    <td><?= $gioi_tinh ?></td>
                                     <td><a href="?act=sanpham&nd=editsp&idsp=<?=$id_sp?>" class="btn btn-success"><i
                                                 class="bi bi-pencil-square"></i> Sửa</a>
                                         <a href="?act=sanpham&nd=delsp&idsp=<?= $id_sp?>"

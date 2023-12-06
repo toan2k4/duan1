@@ -73,6 +73,14 @@ if (isset($_SESSION['user']) && $_SESSION['user']['roles'] == '1') {
             case 'checkout':
                 include('view/checkout.php');
                 break;
+            case 'thanks':
+                if(isset($_GET['id_ctbill'])){
+                    $kh = loadone_detailbill_id($_GET['id_ctbill']);
+                    $sp = loadone_bill($_GET['id_ctbill']);
+                    
+                }
+                include('view/thanks.php');
+                break;
             case 'bill':
                 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     if (empty($_POST["full_name"])) {
@@ -80,8 +88,8 @@ if (isset($_SESSION['user']) && $_SESSION['user']['roles'] == '1') {
                     } else {
                         $full_name = $_POST['full_name'];
                     }
-                   
-                   
+
+
                     $email = $_POST['email'];
 
                     if (empty($_POST["phone"])) {
@@ -99,22 +107,38 @@ if (isset($_SESSION['user']) && $_SESSION['user']['roles'] == '1') {
                     }
 
 
-                    if (empty($_POST["payment-method"])) {
+                    if (empty($_POST["payUrl"])) {
                         $payErr = "payment method is required";
                     } else {
-                        $thanh_toan = $_POST['payment-method'];
+                        $thanh_toan = $_POST['payUrl'];
                     }
-                    
+
                     if (isset($full_name) && isset($phone) && isset($dia_chi) && isset($thanh_toan)) {
-                        $id_detailbill = insert_detail_bill($full_name, $phone, $dia_chi, $email, $thanh_tien, $thanh_toan);
-                        foreach ($_SESSION['cart'] as $item) {
-                            extract($item);
-                            insert_bill($id_detailbill, $id, $quantity, $price, $color, $size);
+                        if ($thanh_toan == 'Chuyển khoản') {
+                            // test momo:
+                            // NGUYEN VAN A
+                            // 9704 0000 0000 0018
+                            // 03/07
+                            // OTP
+                            $id_detailbill = insert_detail_bill($_SESSION['user']['id_tk'], $full_name, $phone, $dia_chi, $email, $thanh_tien, $thanh_toan);
+                            foreach ($_SESSION['cart'] as $item) {
+                                extract($item);
+                                insert_bill($id_detailbill, $id, $quantity, $price, $color, $size);
+                            }
+                            unset($_SESSION['cart']);
+                            include "view/thanhtoan.php";
+                        } else {
+                            $id_detailbill = insert_detail_bill($_SESSION['user']['id_tk'], $full_name, $phone, $dia_chi, $email, $thanh_tien, $thanh_toan);
+                            foreach ($_SESSION['cart'] as $item) {
+                                extract($item);
+                                insert_bill($id_detailbill, $id, $quantity, $price, $color, $size);
+                            }
+                            unset($_SESSION['cart']);
+                            header('location: index.php?act=thanks&id_detailbill='.$id_detailbill.'');
                         }
-                        unset($_SESSION['cart']);
-                        header('location: index.php');
-                    }else{
-                       
+
+                    } else {
+
                         include "view/checkout.php";
                     }
 
@@ -145,7 +169,27 @@ if (isset($_SESSION['user']) && $_SESSION['user']['roles'] == '1') {
                 include('view/login&register.php');
                 break;
             case 'account':
+                if (isset($_GET['nd'])) {
+                    if ($_GET['nd'] == 'chitiet') {
+                        if (isset($_GET['id_ctbill']) && isset($_GET['trang_thai'])) {
+                            $ds = loadone_bill($_GET['id_ctbill']);
+                            $trang_thai = $_GET['trang_thai'];
+                            include "view/chitietdonhang.php";
+                        }
 
+                    }
+
+                    if ($_GET['nd'] == 'uptt') {
+                        if (isset($_POST['huy']) && ($_POST['huy'])) {
+                            $id = $_POST['id'];
+                            update_trangthai($id, 4);
+                        }
+
+
+                    }
+
+                }
+                $list_detailbill = loadAll_detailbill_idtk($_SESSION['user']['id_tk']);
                 include('view/myaccount.php');
                 break;
             case 'shop':
@@ -257,8 +301,8 @@ if (isset($_SESSION['user']) && $_SESSION['user']['roles'] == '1') {
                     } else {
                         $full_name = $_POST['full_name'];
                     }
-                   
-                   
+
+
                     $email = $_POST['email'];
 
                     if (empty($_POST["phone"])) {
@@ -281,22 +325,22 @@ if (isset($_SESSION['user']) && $_SESSION['user']['roles'] == '1') {
                     } else {
                         $thanh_toan = $_POST['payment-method'];
                     }
-                    
+
                     if (isset($full_name) && isset($phone) && isset($dia_chi) && isset($thanh_toan)) {
-                        $id_detailbill = insert_detail_bill($full_name, $phone, $dia_chi, $email, $thanh_tien, $thanh_toan);
+                        $id_detailbill = insert_detail_bill(0, $full_name, $phone, $dia_chi, $email, $thanh_tien, $thanh_toan);
                         foreach ($_SESSION['cart'] as $item) {
                             extract($item);
                             insert_bill($id_detailbill, $id, $quantity, $price, $color, $size);
                         }
                         unset($_SESSION['cart']);
                         header('location: index.php');
-                    }else{
-                       
+                    } else {
+
                         include "view/checkout.php";
                     }
 
                 }
-                
+
                 break;
             case 'login':
                 if (isset($_GET['nd'])) {

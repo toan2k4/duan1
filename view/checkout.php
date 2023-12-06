@@ -114,8 +114,8 @@
 								<p>Sub Total <span>$<?= !empty($_SESSION['cart'])? $_SESSION['resultTotal']: 0 ?></span></p>
 								<p>Shipping Fee <span>$00.00</span></p>
 
-								<h4>Grand Total <span>$<?=  !empty($_SESSION['cart'])? $_SESSION['resultTotal']: 0 ?></span></h4>
-									 <input type="hidden" name="thanh_tien" value="<?= !empty($_SESSION['cart'])? $_SESSION['resultTotal']: 0 ?>">
+								<h4>Grand Total <span>$<?=  !empty($_SESSION['cart'])?number_format( $_SESSION['resultTotal'], 2, ',', '.') : 0 ?></span></h4>
+									 <input type="hidden" name="thanh_tien" value="<?= !empty($_SESSION['cart'])?$_SESSION['resultTotal']: 0 ?>">
 							</div>
 
 						</div>
@@ -130,21 +130,21 @@
 									echo '<div class="alert alert-danger">'.$payErr.'</div>';
 								}?>
 								<div class="single-method">
-									<input type="radio" id="payment_check" name="payment-method" value="Tiền mặt">
+									<input type="radio" id="payment_check" name="payUrl" value="Tiền mặt">
 									<label for="payment_check">Pay cash</label>
 									<p data-method="check">Please send a Check to Store name with Store Street, Store
 										Town, Store State, Store Postcode, Store Country.</p>
 								</div>
 
 								<div class="single-method">
-									<input type="radio" id="payment_bank" name="payment-method" value="Chuyển khoản">
+									<input type="radio" id="payment_bank" name="payUrl" value="Chuyển khoản">
 									<label for="payment_bank">Direct Bank Transfer</label>
 									<p data-method="bank">Please send a Check to Store name with Store Street, Store
 										Town, Store State, Store Postcode, Store Country.</p>
 								</div>
 
 								<div class="single-method">
-									<input type="radio" id="payment_cash" name="payment-method" value="thanh toán khi nhận hàng">
+									<input type="radio" id="payment_cash" name="payUrl" value="thanh toán khi nhận hàng">
 									<label for="payment_cash">Cash on Delivery</label>
 									<p data-method="cash">Please send a Check to Store name with Store Street, Store
 										Town, Store State, Store Postcode, Store Country.</p>

@@ -1,7 +1,7 @@
 <?php 
-    function insert_detail_bill($full_name, $phone, $dia_chi, $email, $thanh_tien, $thanh_toan){
+    function insert_detail_bill( $id_tk = 0, $full_name, $phone, $dia_chi, $email, $thanh_tien, $thanh_toan){
         $date = date('H:m:s d-m-Y');
-        $sql = "INSERT INTO detail_bill( full_name, phone, dia_chi, email, thoi_gian, thanh_tien, thanh_toan) VALUES ( '$full_name', '$phone', '$dia_chi', '$email', '$date', '$thanh_tien', '$thanh_toan')";
+        $sql = "INSERT INTO detail_bill(id_tk, full_name, phone, dia_chi, email, thoi_gian, thanh_tien, thanh_toan) VALUES ( '$id_tk', '$full_name', '$phone', '$dia_chi', '$email', '$date', '$thanh_tien', '$thanh_toan')";
         return pdo_execute_return_lastInsertId($sql);
     }
     function insert_bill($id_ctbill, $id_sp, $so_luong, $gia, $mau, $size){
@@ -12,6 +12,14 @@
     function loadAll_detailbill(){
         $sql = "SELECT * FROM detail_bill order by id desc";
         return pdo_query($sql);
+    }
+    function loadAll_detailbill_idtk($id_tk){
+        $sql = "SELECT * FROM detail_bill WHERE id_tk = $id_tk order by id desc";
+        return pdo_query($sql);
+    }
+    function loadone_detailbill_id($id){
+        $sql = "SELECT * FROM detail_bill WHERE id = $id ";
+        return pdo_query_one($sql);
     }
 
     function loadone_bill($id){

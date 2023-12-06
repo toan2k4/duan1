@@ -235,6 +235,21 @@ if (isset($_GET['act']) && ($_GET['act'] != '')) {
                     include('taikhoan/list.php');
                 }
 
+                if($_GET['nd'] == 'phanquyen'){
+                   if(isset($_GET['idtk'])){
+                    $tk = load_one_tk($_GET['idtk']);
+                   }
+                    if($_SERVER['REQUEST_METHOD'] == 'POST'){
+                        $roles = $_POST['roles'];
+                        $id_tk = $_POST['id_tk'];
+
+                        update_phanquyen($id_tk,$roles);
+                        header('location: index.php?act=taikhoan&nd=list');
+                    }
+                    
+                    include "taikhoan/phanquyen.php";
+                }
+
             }
             break;
         case 'bienthe':
