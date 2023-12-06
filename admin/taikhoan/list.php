@@ -59,9 +59,9 @@
                                         <?= $dia_chi ?>
                                     </td>
                                     <td>
-                                        <?php if ($roles == 0)
+                                        <?php if ($roles == 1)
                                             echo "Admin";
-                                        elseif ($roles == 1)
+                                        elseif ($roles == 0)
                                             echo "Khách hàng";
                                         else
                                             echo "Nhân Viên";
@@ -76,6 +76,7 @@
                                             onclick="return confirm('Bạn có muốn khóa tài khoản này không ?') "
                                             class="btn btn-danger">Khóa tài khoản</a>
                                         <?php }?>
+                                        <a href="?act=taikhoan&nd=phanquyen&idtk=<?= $id_tk ?>" class="btn btn-success">Phân quyền</a>
                                     </td>
                                 </tr>
                                 <?php $i++;

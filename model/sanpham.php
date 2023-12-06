@@ -110,4 +110,9 @@ function load_sp_sex($id){
     $sql ="SELECT * FROM sanpham WHERE gioi_tinh = $id";
     return pdo_query($sql);
 }
+
+function update_phanquyen($id_tk,$roles){
+    $sql = "UPDATE `taikhoan` SET`roles`='$roles' WHERE id_tk= $id_tk";
+    pdo_execute($sql);
+}
 ?>

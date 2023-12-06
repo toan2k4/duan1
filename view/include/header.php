@@ -132,10 +132,10 @@
                                     </div>
                                 </div>
 
-                                <div class="header-wishlist">
+                                <!-- <div class="header-wishlist">
                                     <a href="wishlist.html"><img src="public/assets/images/icons/wishlist.png"
                                             alt="Wishlist"> <span>02</span></a>
-                                </div>
+                                </div> -->
 
                                 <div class="header-mini-cart">
                                     <a href="?act=cart"><img src="public/assets/images/icons/cart.png" alt="Cart">
