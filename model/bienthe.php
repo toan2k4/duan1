@@ -41,8 +41,13 @@
         pdo_execute($sql);
     }
 
-    function check_size($id_sp, $id_color){
-        $sql = "SELECT * FROM thong_tin_sp WHERE id_sp =$id_sp AND id_color = $id_color";
-        return pdo_query($sql);
+    function check_size($id_sp, $id_color, $id_size){
+        $sql = "SELECT * FROM thong_tin_sp WHERE id_sp =$id_sp AND id_color = $id_color and id_size=$id_size";
+        return pdo_query_one($sql);
+    }
+
+    function checkSl($id_sp,$mau, $size){
+        $sql = "SELECT * FROM `thong_tin_sp` WHERE id_sp = $id_sp AND id_color = $mau AND id_size=$size ";
+        return pdo_query_one($sql);
     }
 ?>

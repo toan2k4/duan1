@@ -1,6 +1,6 @@
 <?php 
     function insert_detail_bill( $id_tk = 0, $full_name, $phone, $dia_chi, $email, $thanh_tien, $thanh_toan){
-        $date = date('H:m:s d-m-Y');
+        $date = date('Y-m-d H:m:s');
         $sql = "INSERT INTO detail_bill(id_tk, full_name, phone, dia_chi, email, thoi_gian, thanh_tien, thanh_toan) VALUES ( '$id_tk', '$full_name', '$phone', '$dia_chi', '$email', '$date', '$thanh_tien', '$thanh_toan')";
         return pdo_execute_return_lastInsertId($sql);
     }

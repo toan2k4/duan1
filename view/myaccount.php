@@ -173,7 +173,7 @@
 							<h3>Account Details</h3>
 
 							<div class="account-details-form">
-								<form action="?act=account" method="post" enctype="multipart/form-data">
+								<form action="?act=account&nd=updateTK" method="post" enctype="multipart/form-data">
 									<div class="row">
 										<div class="col-lg-6 col-12 mb-30">
 											<input type="hidden" name="id_tk" value="<?= $_SESSION['user']['id_tk'] ?>">

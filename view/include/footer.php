@@ -121,7 +121,7 @@
 <!-- Plugins JS -->
 <script src="public/assets/js/plugins.js"></script>
 <!-- Main JS -->
-<script src="public/assets/js/test.js"></script>
+<script src="public/assets/js/main.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 
 <script>
@@ -165,20 +165,8 @@
     }
 </script>
 <script>
-    const sizes = document.querySelectorAll('.size');
-
-
-    for (const size of sizes) {
-        size.onclick = function () {
-
-            for (var i = 0; i < sizes.length; i++) {
-                sizes[i].classList.remove('selected-size');
-            }
-            size.classList.add('selected-size');
-            document.getElementById('selectedSizeInput').value = size.value;
-        }
-    }
     const colors = document.querySelectorAll('.color');
+
     for (const color of colors) {
         color.onclick = function () {
 
@@ -187,9 +175,48 @@
             }
             color.style.border = "2px solid";
             document.getElementById('selectedColorInput').value = color.value;
-
         }
     }
+
+    const sizes = document.querySelectorAll('.size');
+
+    const id_sp = document.getElementById('id_sp').value;
+    for (const size of sizes) {
+        size.onclick = function () {
+            for (var i = 0; i < sizes.length; i++) {
+                sizes[i].classList.remove('selected-size');
+            }
+            size.classList.add('selected-size');
+            document.getElementById('selectedSizeInput').value = size.value;
+            var color = document.getElementById('selectedColorInput').value
+            var kc = document.getElementById('selectedSizeInput').value
+            // console.log(color);
+            $.ajax({
+                type: 'POST',
+                url: "./view/addToCart.php?act=checksize",
+                data: {
+                    mau: color,
+                    kichco: kc,
+                    productId: id_sp
+
+                },
+                success: function (response) {
+                    if (response == '') {
+                        
+                    } else {
+                        alert(response);
+                        for (var i = 0; i < sizes.length; i++) {
+                            sizes[i].classList.remove('selected-size');
+                        }
+                    }
+                },
+                error: function (error) {
+                    console.log(error);
+                }
+            })
+        }
+    }
+
 
 
 

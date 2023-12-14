@@ -149,10 +149,6 @@
 									<p data-method="cash">Please send a Check to Store name with Store Street, Store
 										Town, Store State, Store Postcode, Store Country.</p>
 								</div>
-
-
-
-
 							</div>
 
 							<button type="submit" class="place-order">Place order</button>

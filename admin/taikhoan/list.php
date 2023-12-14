@@ -10,7 +10,6 @@
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                         <tr>
-                            <th>Check</th>
                             <th>STT</th>
                             <th>Họ và tên</th>
                             <th>Tên tài khoản</th>
@@ -32,7 +31,7 @@
                                 extract($tk);
                                 ?>
                                 <tr>
-                                    <td><input type="checkbox"></td>
+                                    
                                     <td>
                                         <?= $i ?>
                                     </td>
@@ -86,12 +85,7 @@
 
 
                 </table>
-                <a href="" type="reset" class="btn btn-secondary">Bỏ Chọn Tất Cả </a>
-                <a href="" type="button" class="btn btn-success">Chọn Tất Cả</a>
-                <a type="button" class="btn btn-warning" onclick="return confirm('Bạn có muốn xóa không ?')">Xóa Các Mục
-                    Đã Chọn</a>
-                <a href="" onclick="return confirm('Bạn có muốn xóa không ?')" type="button" class="btn btn-danger">Xóa
-                    Tất Cả</a>
+               
                 </form>
             </div>
         </div>
