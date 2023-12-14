@@ -480,16 +480,22 @@ $('.qtybtn').on('click', function() {
 	var oldValue = $button.parent().find('input').val();
 	if ($button.hasClass('inc')) {
 	  var newVal = parseFloat(oldValue) + 1;
+      updateSoLuong(newVal)
 	} else {
 	   // Don't allow decrementing below zero
 	  if (oldValue > 0) {
 		var newVal = parseFloat(oldValue) - 1;
+        updateSoLuong(newVal)
 		} else {
 		newVal = 0;
 	  }
 	  }
       $input.val(newVal);
-      $('#quantity').val(newVal);
+    //   $('#quantity').val(newVal);
+
+      function updateSoLuong(newSL){
+        console.log(newSL);
+      }
 }); 
     
 /*----- 

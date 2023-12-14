@@ -1,5 +1,7 @@
 <?php
 session_start();
+include "../model/pdo.php";
+include "../model/bienthe.php";
 if (isset($_GET['act']) && ($_GET['act'] != '')) {
     $act = $_GET['act'];
     switch ($act) {
@@ -13,36 +15,7 @@ if (isset($_GET['act']) && ($_GET['act'] != '')) {
                 $size = $_POST['size'];
                 $quantity = $_POST['quantity'];
 
-                // $index = array_search($id_sp, array_column($_SESSION['cart'], 'id'));
-
-                // if ($index !== false) {
-                //     if ($_SESSION['cart'][$index]['color'] === $mau && $_SESSION['cart'][$index]['size'] === $size && $_SESSION['cart'][$index]['id'] === $id_sp) {
-                //         $_SESSION['cart'][$index]['quantity'] += $quantity;
-                //     } else {
-                //         $product = [
-                //             'id' => $id_sp,
-                //             'name' => $ten_sp,
-                //             'image' => $hinh_sp,
-                //             'price' => $gia_sp,
-                //             'quantity' => $quantity,
-                //             'color' => $mau,
-                //             'size' => $size
-                //         ];
-                //         $_SESSION['cart'][] = $product;
-                //     }
-                //     // $_SESSION['cart'][$index]['quantity'] += $quantity;
-                // } else {
-                //     $product = [
-                //         'id' => $id_sp,
-                //         'name' => $ten_sp,
-                //         'image' => $hinh_sp,
-                //         'price' => $gia_sp,
-                //         'quantity' => $quantity,
-                //         'color' => $mau,
-                //         'size' => $size
-                //     ];
-                //     $_SESSION['cart'][] = $product;
-                // }
+                
                 $productExists = false;
                 foreach ($_SESSION['cart'] as $key => $item) {
                     if ($item['id'] === $id_sp && $item['color'] === $mau && $item['size'] === $size) {
@@ -103,6 +76,38 @@ if (isset($_GET['act']) && ($_GET['act'] != '')) {
                 }
             } else {
                 echo 'yêu cầu khong kojpw lẹ';
+            }
+            break;
+        case 'checksize':
+            if ($_SERVER['REQUEST_METHOD'] == "POST") {
+                $color = $_POST['mau'];
+                $size = $_POST['kichco'];
+                $id_sp = $_POST['productId'];
+                
+                $check = check_size($id_sp, $color, $size);
+                if(empty($check)){
+                    echo 'không còn size này';
+                }elseif($check['so_luong'] == 0){
+                    echo 'sản phẩm này trong kho đã hết';
+                }
+            }
+            break;
+        case 'checkSl':
+            if ($_SERVER['REQUEST_METHOD'] == "POST") {
+                $color = $_POST['mau'];
+                $size = $_POST['kichco'];
+                $id_sp = $_POST['id_sp'];
+                $newQty = $_POST['newQuantity'];
+                $sl = checkSl($id_sp,$color, $size);
+                if($sl['so_luong'] > 0){
+                    if($sl['so_luong'] >= $newQty){
+                        echo 'valid';
+                    }else{
+                        echo 'invalid';
+                    }
+                }else{
+                    echo 'saisl';
+                }
             }
             break;
     }

@@ -19,7 +19,7 @@
 <div class="page-section section section-padding">
     <div class="container">
 
-        <form action="#" id="order">
+        <form action="" id="order">
             <div class="row mbn-40">
                 <div class="col-12 mb-40">
                     <div class="cart-table table-responsive">
@@ -52,8 +52,8 @@
                                             <td>
                                                 <?= $key + 1 ?>
                                             </td>
-                                            <td class="pro-thumbnail"><a href="#"><img src="<?= $hinh ?>" alt="" /></a></td>
-                                            <td class="pro-title"><a href="#">
+                                            <td class="pro-thumbnail"><a href=""><img src="<?= $hinh ?>" alt="" /></a></td>
+                                            <td class="pro-title"><a href="">
                                                     <?= $name ?>
                                                 </a></td>
                                             <td class="pro-price"><span class="amount">$

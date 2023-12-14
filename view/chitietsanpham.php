@@ -97,11 +97,6 @@
 
                             <div class="quantity-colors d-flex flex-column">
 
-                                <div class="quantity">
-                                    <h5>Quantity:</h5>
-                                    <div class="pro-qty"><input type="text" value="1"></div>
-                                </div>
-
                                 <div class="colors">
                                     <h5>Color:</h5>
                                     <div class="color-options">
@@ -143,8 +138,12 @@
 
                                     </div>
                                 </div>
+                                <div class="quantity">
+                                    <h5>Quantity:</h5>
+                                    <div class="pro-qty"><input type="text" value="1" id="quantityInput"></div>
+                                </div>
                             </div>
-
+                            
                             <div class="actions">
                                 <form action="?act=cart" method="post">
 
@@ -163,8 +162,8 @@
                                 <button class="box" data-tooltip="Wishlist"><i class="ti-heart"></i></button>
 
                             </div>
-                            
-                           
+
+
                             <!-- <div class="tags">
 
                                     <h5>Tags:</h5>
@@ -316,12 +315,12 @@
                                                                             star.onclick = function () {
                                                                                 const clickedData = parseInt(star.getAttribute('data'));
                                                                                 getdatadanhgia.value = clickedData;
-                                                                                // Loop through all stars
+
                                                                                 for (let a = 0; a < stars.length; a++) {
                                                                                     const currentStar = stars[a];
                                                                                     const currentData = parseInt(currentStar.getAttribute('data'));
 
-                                                                                    // Toggle classes based on the comparison with clickedData
+
                                                                                     if (currentData <= clickedData) {
                                                                                         currentStar.classList.remove('fa-star-o');
                                                                                         currentStar.classList.add('fa-star');

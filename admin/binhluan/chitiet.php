@@ -45,10 +45,13 @@
                                         <?= $noi_dung ?>
                                     </td>
                                     <td>
+                                        <?= $danh_gia ?> sao
+                                    </td>
+                                    <td>
                                         <?= $ngaybinhluan ?>
                                     </td>
                                     <td>
-                                        <a href="?act=binhluan&nd=delbl&idbl=<?= $id_bl?>"
+                                        <a href="?act=binhluan&nd=delbl&idbl=<?= $id_bl?>&id_sp=<?= $id_sp?>"
                                             onclick="return confirm('Bạn có muốn xóa không ?') "
                                             class="btn btn-danger">Xóa</a>
                                     </td>

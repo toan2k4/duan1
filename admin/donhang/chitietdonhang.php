@@ -46,14 +46,18 @@
                                 </td>
                                 <td>
                                     <?php
-                                    $color = load_one_bt($mau);
-                                    echo $color['name'];
+                                    if(!empty($mau)){
+                                        $color = load_one_bt($mau);
+                                        echo $color['name'];
+                                    }
                                     ?>
                                 </td>
                                 <td>
                                     <?php
-                                    $color = load_one_bt($size);
-                                    echo $color['name'];
+                                    if(!empty($size)){
+                                        $color = load_one_bt($size);
+                                        echo $color['name'];
+                                    }
                                     ?>
                                 </td>
                                 <td>$

@@ -17,11 +17,14 @@
                 </div>
                 <div class="mb-3">
                     <label for="pwd" class="form-label">Name:</label>
-                    <input type="text" class="form-control" id="pwd" placeholder="Tên Sản Phẩm" name="ten_sp" required>
+                    <input type="text" class="form-control" id="pwd" placeholder="Tên Sản Phẩm" name="ten_sp">
+                    <?= isset($errorTen)? '<p style="color: red">'.$errorTen.'</p>': ''?>
+                    
                 </div>
                 <div class="mb-3 mt-3">
                     <label for="email" class="form-label">hình ảnh sản phẩm :</label>
                     <input class="form-control" type="file" name="hinh_sp">
+                    <?= isset($errorhinh)? '<p style="color: red">'.$errorhinh.'</p>': ''?>
                 </div>
                 <div class="mb-3 mt-3">
                     <label for="email" class="form-label">Giảm Giá:</label>
@@ -30,14 +33,17 @@
                 <div class="mb-3 mt-3">
                     <label for="email" class="form-label">Giá Tiền :</label>
                     <input class="form-control" type="text" name="gia" value="0">
+                    <?= isset($errorGia)? '<p style="color: red">'.$errorGia.'</p>': ''?>
                 </div>
                 <div class="form-group">
                     <label for="exampleFormControlTextarea1">Mô tả : </label>
                     <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="mo_ta"></textarea>
+                    <?= isset($errorMt)? '<p style="color: red">'.$errorMt.'</p>': ''?>
                 </div>
                 <div class="mb-3">
                     <label for="exampleInputPassword1" class="form-label">Ngày nhập</label>
                     <input type="date" name="ngay_nhap" class="form-control" id="exampleInputPassword1">
+                    <?= isset($errorNn)? '<p style="color: red">'.$errorNn.'</p>': ''?>
                 </div>
                 <div class="mb-3 mt-3">
                     <label for="email" class="form-label">Ảnh phụ:</label>
@@ -55,8 +61,9 @@
 
                 <div class="mb-3">
                     <label for="exampleInputPassword1" class="form-label">Danh mục : </label>
+                    <?= isset($errorDm)? '<p style="color: red">'.$errorDm.'</p>': ''?>
                     <select class="form-control" aria-label="Default select example" name="danh_muc">
-                        <option selected>-------- Chọn Danh Mục --------</option>
+                        <option selected></option>-------- Chọn Danh Mục --------</option>
                         <?php foreach ($dsdm as $key => $value): ?>
 
                             <option value="<?= $value['id_dm'] ?>">
@@ -79,7 +86,7 @@
     </div>";
     } else if ($isthongbao == 0) {
         echo "<div class='alert alert-danger'>
-        <strong>$thongbao</strong> Bạn Chưa Điền Tên Danh Mục .
+        <strong>$thongbao</strong>
       </div>";
     } else {
         echo '';

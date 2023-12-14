@@ -18,7 +18,9 @@ include('global.php');
 
 $ds_dm = loadAll_dm();
 include("view/include/header.php");
-
+if (!isset($_SESSION['cart'])) {
+    $_SESSION['cart'] = [];
+}
 
 $ds_popular = loadAll_sp_popular();
 
@@ -27,9 +29,7 @@ $ds_sp_sale = loadAll_sp_sale();
 if (isset($_SESSION['user']) && $_SESSION['user']['roles'] == '1') {
     header("location: admin/index.php");
 } elseif (isset($_SESSION['user']) && $_SESSION['user']['roles'] == '0') {
-    if (!isset($_SESSION['cart'])) {
-        $_SESSION['cart'] = [];
-    }
+    
     if (isset($_GET['act']) && ($_GET['act'] != '')) {
         $act = $_GET['act'];
         switch ($act) {
@@ -134,7 +134,7 @@ if (isset($_SESSION['user']) && $_SESSION['user']['roles'] == '1') {
                                 insert_bill($id_detailbill, $id, $quantity, $price, $color, $size);
                             }
                             unset($_SESSION['cart']);
-                            header('location: index.php?act=thanks&id_detailbill='.$id_detailbill.'');
+                            header('location: index.php?act=thanks&id_ctbill='.$id_detailbill.'');
                         }
 
                     } else {
@@ -186,6 +186,47 @@ if (isset($_SESSION['user']) && $_SESSION['user']['roles'] == '1') {
                         }
 
 
+                    }
+
+                    if ($_GET['nd'] == 'updateTK') {
+                        if ($_SERVER['REQUEST_METHOD'] == "POST") {
+                            $errors = [];
+                            $full_name = $_POST['full_name'];
+                            $name_tk = $_POST['name_tk'];
+                            $email = $_POST['email'];
+                            $id_tk = $_POST['id_tk'];
+                            $dia_chi = $_POST['dia_chi'];
+                            $phone = $_POST['phone'];
+                            $passold = $_POST['passold'];
+                            $passnew = $_POST['passnew'];
+                            $repass = $_POST['repass'];
+                            $image_tk = $_POST['image_tk'];
+                            $file = $_FILES['image_tk'];
+        
+                            if ($file['size'] > 0) {
+                                unlink($img_path . $image_tk);
+                                $image_tk = $file['name'];
+                                move_uploaded_file($file['tmp_name'], $img_path . $image_tk);
+                            }
+                            if (!empty($passold) || !empty($passnew) || !empty($repass)) {
+                                if ($passold == $_SESSION['user']['pass']) {
+                                    if ($repass == $passnew) {
+                                        update_tk($id_tk, $name_tk, $passnew, $image_tk, $full_name, $email, $phone, $dia_chi);
+                                        $_SESSION['user'] = load_one_tk($id_tk);
+                                        header('location: index.php?act=account');
+                                    } else {
+                                        $errors[] = 'password nhập lại không đúng với password mới';
+                                    }
+                                } else {
+                                    $errors[] = 'password cũ không đúng';
+                                }
+                            }else{
+                                update_tk($id_tk, $name_tk, $passnew = '', $image_tk, $full_name, $email, $phone, $dia_chi);
+                                $_SESSION['user'] = load_one_tk($id_tk);
+                                header('location: index.php?act=account');
+                            }
+        
+                        }
                     }
 
                 }
@@ -256,9 +297,7 @@ if (isset($_SESSION['user']) && $_SESSION['user']['roles'] == '1') {
 
     include("view/include/footer.php");
 } else {
-    if (!isset($_SESSION['cart'])) {
-        $_SESSION['cart'] = [];
-    }
+   
     if (isset($_GET['act']) && ($_GET['act'] != '')) {
         $act = $_GET['act'];
         switch ($act) {
